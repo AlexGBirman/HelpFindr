@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="0dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -24,14 +24,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Employee"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/btnClient" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"

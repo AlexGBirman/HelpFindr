@@ -25,9 +25,6 @@
         <action
             android:id="@+id/action_loginFragment4_to_clientHomeFragment"
             app:destination="@id/clientHomeFragment" />
-        <action
-            android:id="@+id/action_loginFragment4_to_usersFragment"
-            app:destination="@id/usersFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment2"
@@ -45,10 +42,26 @@
         android:id="@+id/signUpFragment"
         android:name="com.example.ejerciciorecyclerview.fragments.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_clientHomeFragment"
+            app:destination="@id/clientHomeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clientHomeFragment"
         android:name="com.example.ejerciciorecyclerview.fragments.ClientHomeFragment"
         android:label="fragment_client_home"
-        tools:layout="@layout/fragment_client_home" />
+        tools:layout="@layout/fragment_client_home" >
+        <action
+            android:id="@+id/action_clientHomeFragment_to_clientMainFragment2"
+            app:destination="@id/clientMainFragment" />
+        <action
+            android:id="@+id/action_clientHomeFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientMainFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.ClientMainFragment"
+        android:label="fragment_client_main"
+        tools:layout="@layout/fragment_client_main" />
 </navigation>

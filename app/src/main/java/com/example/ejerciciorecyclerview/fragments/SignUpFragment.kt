@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.findNavController
 import com.example.ejerciciorecyclerview.R
 
 class SignUpFragment : Fragment() {
@@ -15,8 +16,8 @@ class SignUpFragment : Fragment() {
     private lateinit var v : View
     private lateinit var txtUser : EditText
     private lateinit var txtPass : EditText
-    private lateinit var btnLogin : Button
-    private lateinit var btnSignUp : Button
+    private lateinit var btnClient : Button
+    private lateinit var btnEmployee : Button
 
     companion object {
         fun newInstance() = SignUpFragment()
@@ -28,7 +29,19 @@ class SignUpFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
+        btnClient = v.findViewById(R.id.btnClient)
+        btnEmployee = v.findViewById(R.id.btnEmployee)
+
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        btnClient.setOnClickListener {
+            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToClientHomeFragment()
+            v.findNavController().navigate(actionHome)
+        }
     }
 
 }

@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
                 Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
             }
             else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
-                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToUsersFragment()
+                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToClientHomeFragment()
                 v.findNavController().navigate(actionLogin)
             }
             else {
