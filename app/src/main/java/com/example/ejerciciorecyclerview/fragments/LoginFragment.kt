@@ -2,6 +2,7 @@
 package com.example.ejerciciorecyclerview.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,13 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.ejerciciorecyclerview.R
+import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.User
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 
 class LoginFragment : Fragment() {
@@ -23,6 +29,8 @@ class LoginFragment : Fragment() {
     private lateinit var btnSignUp : Button
 
     private var userList : MutableList<User> = mutableListOf()
+    val db = Firebase.firestore
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +53,8 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        var docRef = db.collection("prestadores").document("a3L9ff0JUOgNJEspkLms")
+
         btnSignUp.setOnClickListener {
             val actionSignUp = LoginFragmentDirections.actionLoginFragment4ToSignUpFragment()
             v.findNavController().navigate(actionSignUp)
@@ -52,6 +62,18 @@ class LoginFragment : Fragment() {
 
         btnLogin.setOnClickListener {
             if (txtUser.text.isEmpty() && txtPass.text.isEmpty()) {
+                docRef.get()
+                    .addOnSuccessListener { dataSnapshot ->
+                        if(dataSnapshot != null){
+                            val prestador = dataSnapshot.toObject<Prestador>()
+                            Log.d("testeo", "Document Snapshot data: ${prestador.toString()}")
+                        }else{
+                            Log.d("testeo", "no such doc")
+                        }
+                    }
+                    .addOnFailureListener {exception ->
+                        Log.d("testeo", "fallo xq ", exception)
+                    }
                 Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
             }
             else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
