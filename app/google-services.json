@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033506846370",
+    "project_id": "helpfinder-362220",
+    "storage_bucket": "helpfinder-362220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033506846370:android:064b7a49190a61431309fb",
+        "android_client_info": {
+          "package_name": "com.example.ejerciciorecyclerview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033506846370-scoeom76nelnnbq3uihfrje39sm017i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-EPKW7x3--tDQqa7rBDIM4c8gfJKCX7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033506846370-scoeom76nelnnbq3uihfrje39sm017i0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
