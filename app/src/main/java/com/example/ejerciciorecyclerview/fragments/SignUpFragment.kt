@@ -39,7 +39,7 @@ class SignUpFragment : Fragment() {
         super.onStart()
 
         btnClient.setOnClickListener {
-            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToClientHomeFragment()
+            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToUsersFragment()
             v.findNavController().navigate(actionHome)
         }
     }
