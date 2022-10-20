@@ -58,6 +58,26 @@ class LoginFragment : Fragment() {
 
         var docRef = db.collection("rubros")
 
+        fun dataBaseCall() : MutableList<Rubro>{
+            docRef.get()
+                .addOnSuccessListener { dataSnapshot ->
+                    if(dataSnapshot != null){
+                        for(rubro in dataSnapshot){
+                            rubrosList.add(rubro.toObject())
+                        }
+                        for(coso in rubrosList){
+                            Log.d("testeo", coso.toString())
+                        }
+                    }else{
+                        Log.d("testeo", "no such doc")
+                    }
+                }
+                .addOnFailureListener {exception ->
+                    Log.d("testeo", "fallo xq ", exception)
+                }
+            return rubrosList
+        }
+
         btnSignUp.setOnClickListener {
             val actionSignUp = LoginFragmentDirections.actionLoginFragment4ToSignUpFragment()
             v.findNavController().navigate(actionSignUp)
@@ -65,26 +85,15 @@ class LoginFragment : Fragment() {
 
         btnLogin.setOnClickListener {
             if (txtUser.text.isEmpty() && txtPass.text.isEmpty()) {
-                docRef.get()
-                    .addOnSuccessListener { dataSnapshot ->
-                        if(dataSnapshot != null){
-                            for(rubro in dataSnapshot){
-                                rubrosList.add(rubro.toObject())
-                            }
-                            for(coso in rubrosList){
-                                Log.d("testeo", coso.toString())
-                            }
-                        }else{
-                            Log.d("testeo", "no such doc")
-                        }
-                    }
-                    .addOnFailureListener {exception ->
-                        Log.d("testeo", "fallo xq ", exception)
-                    }
                 Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
             }
             else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
-                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToClientMainFragment()
+
+                val lista = dataBaseCall().toTypedArray()
+
+                Log.d("testeo", "${lista}")
+
+                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment(lista)
                 v.findNavController().navigate(actionLogin)
             }
             else {

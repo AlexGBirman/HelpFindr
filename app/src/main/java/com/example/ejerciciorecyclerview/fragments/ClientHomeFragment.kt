@@ -32,10 +32,6 @@ class ClientHomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        btnSearch.setOnClickListener {
-            val actionSearch = ClientHomeFragmentDirections.actionClientHomeFragmentToUsersFragment()
-            v.findNavController().navigate(actionSearch)
-        }
     }
 
 }
