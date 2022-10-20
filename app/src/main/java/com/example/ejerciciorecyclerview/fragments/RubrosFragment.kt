@@ -58,6 +58,7 @@ class RubrosFragment : Fragment() {
             adapter = RubroAdapter(listaDeRubros)
             recyclerRubros.adapter = adapter
         }
+
         return v
     }
 
