@@ -49,23 +49,18 @@ class RubrosFragment : Fragment() {
 
         docRef.get().addOnSuccessListener { snapshot ->
             for(document in snapshot){
-                val rubro = document.toObject(Rubro::class.java)
+                val rubro = document.toObject<Rubro>()
+                Log.d("testeo", "$rubro")
 
                 listaDeRubros.add(rubro)
             }
+            recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
+            adapter = RubroAdapter(listaDeRubros)
+            recyclerRubros.adapter = adapter
         }
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
-        adapter = RubroAdapter(listaDeRubros)
-        recyclerRubros.adapter = adapter
-
-
-    }
 
 
 

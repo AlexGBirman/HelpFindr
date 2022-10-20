@@ -29,7 +29,7 @@ class Rubro (cantPrest: Int, rubro :String):
     }
 
     override fun toString(): String {
-        return "Prestador(Cantidad Prestadores = $cantPrest, rubro = $rubro)"
+        return "Cantidad Prestadores: $cantPrest, Rubro: $rubro"
     }
 
     companion object {
