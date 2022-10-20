@@ -31,8 +31,7 @@ class LoginFragment : Fragment() {
     private lateinit var btnSignUp : Button
 
     private var userList : MutableList<User> = mutableListOf()
-    val db = Firebase.firestore
-    var rubrosList : MutableList<Rubro> = arrayListOf()
+
 
 
     override fun onCreateView(
@@ -56,27 +55,6 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        var docRef = db.collection("rubros")
-
-        fun dataBaseCall() : MutableList<Rubro>{
-            docRef.get()
-                .addOnSuccessListener { dataSnapshot ->
-                    if(dataSnapshot != null){
-                        for(rubro in dataSnapshot){
-                            rubrosList.add(rubro.toObject())
-                        }
-                        for(coso in rubrosList){
-                            Log.d("testeo", coso.toString())
-                        }
-                    }else{
-                        Log.d("testeo", "no such doc")
-                    }
-                }
-                .addOnFailureListener {exception ->
-                    Log.d("testeo", "fallo xq ", exception)
-                }
-            return rubrosList
-        }
 
         btnSignUp.setOnClickListener {
             val actionSignUp = LoginFragmentDirections.actionLoginFragment4ToSignUpFragment()
@@ -88,12 +66,7 @@ class LoginFragment : Fragment() {
                 Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
             }
             else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
-
-                val lista = dataBaseCall().toTypedArray()
-
-                Log.d("testeo", "${lista}")
-
-                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment(lista)
+                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()
                 v.findNavController().navigate(actionLogin)
             }
             else {

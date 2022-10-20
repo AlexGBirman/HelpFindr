@@ -57,9 +57,5 @@
         android:id="@+id/rubrosFragment"
         android:name="com.example.ejerciciorecyclerview.fragments.RubrosFragment"
         android:label="fragment_rubros"
-        tools:layout="@layout/fragment_rubros" >
-        <argument
-            android:name="misRubros"
-            app:argType="com.example.ejerciciorecyclerview.entities.Rubro[]" />
-    </fragment>
+        tools:layout="@layout/fragment_rubros" />
 </navigation>
