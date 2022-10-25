@@ -4,11 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Rubro
 
-class RubroAdapter(var rubrosList: MutableList<Rubro>) : RecyclerView.Adapter<RubroAdapter.RubroHolder>(){
+class RubroAdapter(
+    var rubrosList: MutableList<Rubro>,
+    var onClick : (Int) -> Unit
+    ) : RecyclerView.Adapter<RubroAdapter.RubroHolder>(){
 
     class RubroHolder(v: View) : RecyclerView.ViewHolder(v){
         private var view : View
@@ -25,6 +29,11 @@ class RubroAdapter(var rubrosList: MutableList<Rubro>) : RecyclerView.Adapter<Ru
             val txtCant : TextView = view.findViewById(R.id.cantPrest)
             txtCant.text = cantPrest.toString()
         }
+
+        fun getCardText(): CardView{
+            return view.findViewById(R.id.cardRubro)
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RubroHolder {
@@ -39,6 +48,11 @@ class RubroAdapter(var rubrosList: MutableList<Rubro>) : RecyclerView.Adapter<Ru
     override fun onBindViewHolder(holder: RubroHolder, position: Int) {
         holder.setRubro(rubrosList[position].rubro)
         holder.setCantPrest(rubrosList[position].cantPrest)
+
+        holder.getCardText().setOnClickListener{
+            onClick(position)
+        }
+
     }
 
 
