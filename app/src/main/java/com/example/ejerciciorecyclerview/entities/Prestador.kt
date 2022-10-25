@@ -2,49 +2,28 @@ package com.example.ejerciciorecyclerview.entities
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.GeoPoint
 
-class Prestador (apellido: String, app_role :String, nombre: String, rubro: String):
-    Parcelable
+class Prestador (apellido: String, app_role :String, nombre: String, rubro: String, geolocalizacion: GeoPoint)
 {
     var apellido: String
     var app_role: String
     var nombre : String
     var rubro : String
+    var geolocalizacion : GeoPoint
 
-    constructor() : this("","","","")
+    constructor() : this("","","","", GeoPoint(0.0,0.0))
 
     init{
         this.apellido = apellido!!
         this.app_role = app_role!!
         this.nombre = nombre!!
         this.rubro = rubro!!
-    }
-
-    constructor(source: Parcel) : this(
-        source.readString()!!,
-        source.readString()!!,
-        source.readString()!!,
-        source.readString()!!
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(apellido)
-        writeString(app_role)
-        writeString(nombre)
-        writeString(rubro)
+        this.geolocalizacion = geolocalizacion!!
     }
 
     override fun toString(): String {
-        return "Prestador(apellido='$apellido', App_Role='$app_role', nombre='$nombre', rubro = $rubro)"
+        return "Prestador(apellido='$apellido', App_Role='$app_role', nombre='$nombre', rubro = $rubro, Localizacion: $geolocalizacion)"
     }
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Prestador> = object : Parcelable.Creator<Prestador> {
-            override fun createFromParcel(source: Parcel): Prestador = Prestador(source)
-            override fun newArray(size: Int): Array<Prestador?> = arrayOfNulls(size)
-        }
-    }
 }

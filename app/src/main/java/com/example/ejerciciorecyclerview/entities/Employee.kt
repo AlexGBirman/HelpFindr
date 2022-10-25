@@ -7,4 +7,5 @@ class Employee(
     pass: String
 ) :
     User(name, score, profilePic, pass) {
+
 }

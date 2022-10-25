@@ -45,9 +45,12 @@ class RubrosFragment : Fragment() {
         v = inflater.inflate(R.layout.fragment_rubros, container, false)
         recyclerRubros = v.findViewById(R.id.recRubros)
         listaDeRubros = arrayListOf()
+        lateinit var txtRubro : String
         val docRef = db.collection("rubros")
 
-        docRef.get().addOnSuccessListener { snapshot ->
+        docRef
+            .get()
+            .addOnSuccessListener { snapshot ->
             for(document in snapshot){
                 val rubro = document.toObject<Rubro>()
                 Log.d("testeo", "$rubro")
@@ -55,14 +58,20 @@ class RubrosFragment : Fragment() {
                 listaDeRubros.add(rubro)
             }
             recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
-            adapter = RubroAdapter(listaDeRubros)
+            adapter = RubroAdapter(listaDeRubros){
+                txtRubro = listaDeRubros[it].rubro.toString()
+                //aca deberia suceder la navegacion a la siguiente pantalla
+                //usando la variable "txtRubro" luego de haber hecho click
+                //hay que crear la recycler view, y en el main navgraph
+                //hay que agregarle un parametro que seria un string
+                //entonces aca abajo se hace la navegacion y se le envia por parametro ese txtRubro
+                //ya con eso se puede hacer el llamado a la base de datos y de ahi filtrarlo
+                Log.d("testeo", txtRubro)
+            }
             recyclerRubros.adapter = adapter
         }
+
         return v
     }
-
-
-
-
 
 }
