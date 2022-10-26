@@ -26,6 +26,7 @@ class PrestadoresFragment : Fragment() {
 
     lateinit var v : View
     var idPrestador : Int = 0
+    lateinit var txtRubro : String
     lateinit var recyclerPrestadores : RecyclerView
     lateinit var listaDePrestadores : ArrayList<Prestador>
     lateinit var adapter :PrestadorAdapter
@@ -39,10 +40,12 @@ class PrestadoresFragment : Fragment() {
         v = inflater.inflate(R.layout.fragment_prestadores, container, false)
         recyclerPrestadores = v.findViewById(R.id.recPrest)
         listaDePrestadores = arrayListOf()
+        txtRubro = PrestadoresFragmentArgs.fromBundle(requireArguments()).txtRubro
+
         val docRef = db.collection("prestadores")
 
         docRef
-            .whereEqualTo("id", idPrestador)
+            .whereEqualTo("rubro", txtRubro)
             .get()
             .addOnSuccessListener { snapshot ->
                 if (snapshot != null) {
@@ -52,10 +55,8 @@ class PrestadoresFragment : Fragment() {
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
                 adapter = PrestadorAdapter(listaDePrestadores) {
                     idPrestador = listaDePrestadores[it].id
-                    val actionPrestadoresToDetalle =
-                        PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(idPrestador)
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(idPrestador)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
-                    Log.d("ok", idPrestador.toString())
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
                 recyclerPrestadores.adapter = adapter
