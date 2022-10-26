@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejerciciorecyclerview.R
@@ -60,12 +61,8 @@ class RubrosFragment : Fragment() {
             recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
             adapter = RubroAdapter(listaDeRubros){
                 txtRubro = listaDeRubros[it].rubro.toString()
-                //aca deberia suceder la navegacion a la siguiente pantalla
-                //usando la variable "txtRubro" luego de haber hecho click
-                //hay que crear la recycler view, y en el main navgraph
-                //hay que agregarle un parametro que seria un string
-                //entonces aca abajo se hace la navegacion y se le envia por parametro ese txtRubro
-                //ya con eso se puede hacer el llamado a la base de datos y de ahi filtrarlo
+                val actionRubroToPrestadores = RubrosFragmentDirections.actionRubrosToPrestadores(txtRubro)
+                v.findNavController().navigate(actionRubroToPrestadores)
                 Log.d("testeo", txtRubro)
             }
             recyclerRubros.adapter = adapter

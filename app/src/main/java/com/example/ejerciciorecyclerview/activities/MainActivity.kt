@@ -1,9 +1,9 @@
-package com.example.ejerciciorecyclerview
+package com.example.ejerciciorecyclerview.activities
 
-import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.ejerciciorecyclerview.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
@@ -44,4 +44,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }

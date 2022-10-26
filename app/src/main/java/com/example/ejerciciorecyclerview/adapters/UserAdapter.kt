@@ -35,7 +35,7 @@ class UserAdapter (
             }
 
             fun getCard() : CardView {
-                return view.findViewById(R.id.card)
+                return view.findViewById(R.id.cardPrestador)
             }
 
         }
