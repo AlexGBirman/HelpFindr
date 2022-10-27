@@ -52,21 +52,22 @@ class RubrosFragment : Fragment() {
         docRef
             .get()
             .addOnSuccessListener { snapshot ->
-            for(document in snapshot){
-                val rubro = document.toObject<Rubro>()
-                Log.d("testeo", "$rubro")
+                for(document in snapshot){
+                    val rubro = document.toObject<Rubro>()
+                    Log.d("testeo", "$rubro")
 
-                listaDeRubros.add(rubro)
+                    listaDeRubros.add(rubro)
+                }
+
+                recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
+                adapter = RubroAdapter(listaDeRubros){
+                    txtRubro = listaDeRubros[it].rubro
+                    val actionRubroToPrestadores = RubrosFragmentDirections.actionRubrosToPrestadores(txtRubro)
+                    v.findNavController().navigate(actionRubroToPrestadores)
+                }
+                recyclerRubros.adapter = adapter
+
             }
-            recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
-            adapter = RubroAdapter(listaDeRubros){
-                txtRubro = listaDeRubros[it].rubro.toString()
-                val actionRubroToPrestadores = RubrosFragmentDirections.actionRubrosToPrestadores(txtRubro)
-                v.findNavController().navigate(actionRubroToPrestadores)
-                Log.d("testeo", txtRubro)
-            }
-            recyclerRubros.adapter = adapter
-        }
 
         return v
     }

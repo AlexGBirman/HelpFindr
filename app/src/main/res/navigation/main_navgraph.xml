@@ -80,7 +80,9 @@
         android:label="fragment_prestador_detalle"
         tools:layout="@layout/fragment_prestador_detalle" >
         <argument
-            android:name="idPrestador"
-            app:argType="integer" />
+            android:name="fullName"
+            app:argType="string" />
+        <argument android:name="geoLocalization"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -14,6 +14,7 @@ import com.example.ejerciciorecyclerview.adapters.PrestadorAdapter
 import com.example.ejerciciorecyclerview.adapters.RubroAdapter
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Rubro
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -25,7 +26,8 @@ class PrestadoresFragment : Fragment() {
     }
 
     lateinit var v : View
-    var idPrestador : Int = 0
+    lateinit var fullName : String
+    lateinit var geoLocalization : String
     lateinit var txtRubro : String
     lateinit var recyclerPrestadores : RecyclerView
     lateinit var listaDePrestadores : ArrayList<Prestador>
@@ -54,8 +56,9 @@ class PrestadoresFragment : Fragment() {
 
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
                 adapter = PrestadorAdapter(listaDePrestadores) {
-                    idPrestador = listaDePrestadores[it].id
-                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(idPrestador)
+                    fullName = listaDePrestadores[it].nombre + " " + listaDePrestadores[it].apellido
+                    geoLocalization = listaDePrestadores[it].geolocalizacion.toString()
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName, geoLocalization)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
