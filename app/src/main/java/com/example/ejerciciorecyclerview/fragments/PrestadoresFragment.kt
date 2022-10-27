@@ -1,5 +1,7 @@
 package com.example.ejerciciorecyclerview.fragments
 
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +20,8 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PrestadoresFragment : Fragment() {
 
@@ -27,11 +31,14 @@ class PrestadoresFragment : Fragment() {
 
     lateinit var v : View
     lateinit var fullName : String
-    lateinit var geoLocalization : String
+    lateinit var geoLocalization : GeoPoint
     lateinit var txtRubro : String
     lateinit var recyclerPrestadores : RecyclerView
     lateinit var listaDePrestadores : ArrayList<Prestador>
     lateinit var adapter :PrestadorAdapter
+    lateinit var geocoder: Geocoder
+    lateinit var adresses: List<Address>
+    lateinit var address : String
     var db = Firebase.firestore
 
 
@@ -43,6 +50,8 @@ class PrestadoresFragment : Fragment() {
         recyclerPrestadores = v.findViewById(R.id.recPrest)
         listaDePrestadores = arrayListOf()
         txtRubro = PrestadoresFragmentArgs.fromBundle(requireArguments()).txtRubro
+
+        geocoder = Geocoder(requireContext(), Locale.getDefault())
 
         val docRef = db.collection("prestadores")
 
@@ -57,8 +66,12 @@ class PrestadoresFragment : Fragment() {
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
                 adapter = PrestadorAdapter(listaDePrestadores) {
                     fullName = listaDePrestadores[it].nombre + " " + listaDePrestadores[it].apellido
-                    geoLocalization = listaDePrestadores[it].geolocalizacion.toString()
-                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName, geoLocalization)
+                    geoLocalization = listaDePrestadores[it].geolocalizacion
+                    if(geoLocalization.latitude != null && geoLocalization.longitude != null){
+                        adresses = geocoder.getFromLocation(geoLocalization.latitude, geoLocalization.longitude, 1)
+                        address = adresses[0].getAddressLine(0)
+                    }
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
