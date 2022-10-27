@@ -39,6 +39,7 @@ class PrestadoresFragment : Fragment() {
     lateinit var geocoder: Geocoder
     lateinit var adresses: List<Address>
     lateinit var address : String
+    lateinit var phone : String
     var db = Firebase.firestore
 
 
@@ -66,12 +67,13 @@ class PrestadoresFragment : Fragment() {
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())
                 adapter = PrestadorAdapter(listaDePrestadores) {
                     fullName = listaDePrestadores[it].nombre + " " + listaDePrestadores[it].apellido
+                    phone = listaDePrestadores[it].phone
                     geoLocalization = listaDePrestadores[it].geolocalizacion
                     if(geoLocalization.latitude != null && geoLocalization.longitude != null){
                         adresses = geocoder.getFromLocation(geoLocalization.latitude, geoLocalization.longitude, 1)
                         address = adresses[0].getAddressLine(0)
                     }
-                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address)
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address, phone)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())

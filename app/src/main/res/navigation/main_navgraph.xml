@@ -84,5 +84,8 @@
             app:argType="string" />
         <argument android:name="geoLocalization"
             app:argType="string" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
     </fragment>
 </navigation>

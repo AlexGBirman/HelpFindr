@@ -39,11 +39,11 @@ class PrestadorDetalle : Fragment() {
         txtName = v.findViewById(R.id.fullName)
         txtGeo = v.findViewById(R.id.geoLoc)
         btnContact = v.findViewById(R.id.btnContact)
-        var phone = "+541135594796"
+        var phone = PrestadorDetalleArgs.fromBundle(requireArguments()).phone
 
 
         btnContact.setOnClickListener {
-            val url = "https://api.whatsapp.com/send?phone=$phone"
+            val url = "https://api.whatsapp.com/send?phone=+54$phone"
 
             val openWhatsappIntent = Intent(Intent.ACTION_VIEW)
             openWhatsappIntent.data = Uri.parse(url)
