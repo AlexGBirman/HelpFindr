@@ -87,5 +87,8 @@
         <argument
             android:name="phone"
             app:argType="string" />
+        <argument
+            android:name="rubro"
+            app:argType="string" />
     </fragment>
 </navigation>

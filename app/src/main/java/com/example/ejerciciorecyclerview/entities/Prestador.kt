@@ -2,7 +2,7 @@ package com.example.ejerciciorecyclerview.entities
 
 import com.google.firebase.firestore.GeoPoint
 
-class Prestador(apellido: String, app_role:String, nombre: String, rubro: String, geolocalizacion: GeoPoint?, id: Int, phone: String?)
+class Prestador(apellido: String, app_role:String, nombre: String, rubro: String, geolocalizacion: GeoPoint?, id: Int?, phone: String?, trabajos: ArrayList<Servicio>)
 {
     var apellido: String
     var app_role: String
@@ -11,9 +11,10 @@ class Prestador(apellido: String, app_role:String, nombre: String, rubro: String
     var id : Int
     var geolocalizacion : GeoPoint
     var phone : String
+    var trabajos : ArrayList<Servicio>
 
 
-    constructor() : this("","","","", GeoPoint(0.0,0.0),0, "")
+    constructor() : this("","","","", GeoPoint(0.0,0.0),0, "", arrayListOf())
 
     init{
         this.apellido = apellido!!
@@ -23,6 +24,8 @@ class Prestador(apellido: String, app_role:String, nombre: String, rubro: String
         this.id = id!!
         this.geolocalizacion = geolocalizacion!!
         this.phone = phone!!
+        this.trabajos = trabajos!!
+
     }
 
     override fun toString(): String {
