@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
@@ -57,7 +58,9 @@ class PrestadorDetalle : Fragment() {
         val docRef = db.collection("prestadores")
 
         btnContact.setOnClickListener{
-            docRef
+            val actionToMap = PrestadorDetalleDirections.actionPrestadorDetalleToMapFragment()
+            v.findNavController().navigate(actionToMap)
+            /*docRef
                 .whereEqualTo("phone", phone)
                 .get()
                 .addOnSuccessListener { snapshot ->
@@ -68,7 +71,9 @@ class PrestadorDetalle : Fragment() {
                         docRef.document(fullName).set(proveedor)
                     }
                     make(it, "Solicitaste Exitosamente los servicios de $fullName, deberás aguardar su confirmación", LENGTH_SHORT).show()
-                }
+
+
+                }*/
 
         }
 

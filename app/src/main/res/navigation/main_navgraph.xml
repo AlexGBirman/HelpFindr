@@ -90,5 +90,13 @@
         <argument
             android:name="rubro"
             app:argType="string" />
+        <action
+            android:id="@+id/action_prestadorDetalle_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>
