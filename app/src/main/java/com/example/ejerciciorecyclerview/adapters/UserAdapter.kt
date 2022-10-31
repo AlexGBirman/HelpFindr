@@ -25,7 +25,7 @@ class UserAdapter (
                 txtName.text = name
             }
 
-            fun setUserScore(score : Int) {
+            fun setUserScore(score : Double) {
                 val txtScore : TextView = view.findViewById(R.id.txtScore)
                 txtScore.text = score.toString()
             }

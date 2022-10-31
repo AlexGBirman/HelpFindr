@@ -2,7 +2,7 @@ package com.example.ejerciciorecyclerview.entities
 
 class Employee(
     name: String,
-    score: Int,
+    score: Double,
     profilePic: String,
     pass: String
 ) :

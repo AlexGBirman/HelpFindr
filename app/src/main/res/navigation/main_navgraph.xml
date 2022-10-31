@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_loginFragment4_to_rubrosFragment"
             app:destination="@id/rubrosFragment" />
+        <action
+            android:id="@+id/action_loginFragment4_to_solicitudesFragment"
+            app:destination="@id/solicitudesFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment2"
@@ -39,7 +42,7 @@
             app:argType="string" />
         <argument
             android:name="userScore"
-            app:argType="integer" />
+            app:argType="float" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -99,4 +102,37 @@
         android:name="com.example.ejerciciorecyclerview.fragments.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/solicitudesFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesFragment"
+        android:label="fragment_solicitudes"
+        tools:layout="@layout/fragment_solicitudes" >
+        <argument
+            android:name="employeeName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_solicitudesFragment_to_solicitudDetalle"
+            app:destination="@id/solicitudDetalle" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudDetalle"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudDetalle"
+        android:label="fragment_solicitud_detalle"
+        tools:layout="@layout/fragment_solicitud_detalle" >
+        <argument
+            android:name="clientName"
+            app:argType="string" />
+        <argument
+            android:name="precio"
+            app:argType="string" />
+        <argument
+            android:name="clientScore"
+            app:argType="string" />
+        <argument
+            android:name="descripcionTrabajo"
+            app:argType="string" />
+        <argument
+            android:name="direccion"
+            app:argType="string" />
+    </fragment>
 </navigation>

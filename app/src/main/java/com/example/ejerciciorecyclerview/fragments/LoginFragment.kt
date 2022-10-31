@@ -45,9 +45,9 @@ class LoginFragment : Fragment() {
         btnLogin = v.findViewById(R.id.btnLogin)
         btnSignUp = v.findViewById(R.id.btnSignUp)
 
-        userList.add(User("Alex", 10, "", "1234"))
-        userList.add(User("Karen", 10, "", "1234"))
-        userList.add(User("Milka", 10, "", "1234"))
+        userList.add(User("Alex", 10.0, "", "1234"))
+        userList.add(User("Karen", 10.0, "", "1234"))
+        userList.add(User("Milka", 10.0, "", "1234"))
 
         return v
     }
@@ -64,6 +64,11 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             if (txtUser.text.isEmpty() && txtPass.text.isEmpty()) {
                 Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
+            }
+            else if(txtUser.text.toString() == "Juan Carlos" && txtPass.text.toString() == "1234"){
+                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
+                v.findNavController().navigate(actionLogin)
+
             }
             else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
                 val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()

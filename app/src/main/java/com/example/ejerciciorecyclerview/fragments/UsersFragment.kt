@@ -33,16 +33,16 @@ class UsersFragment : Fragment() {
         v = inflater.inflate(R.layout.fragment_users, container, false)
         recyclerUser = v.findViewById(R.id.recyclerUsers)
 
-        usersList.add(User("Pepe",10,"https://xsgames.co/randomusers/assets/avatars/male/35.jpg","1234"))
-        usersList.add(User("Pedro",9,"https://xsgames.co/randomusers/assets/avatars/male/61.jpg","1234"))
-        usersList.add(User("Jose",8,"https://xsgames.co/randomusers/assets/avatars/male/64.jpg","1234"))
-        usersList.add(User("Guillermo",6,"https://xsgames.co/randomusers/assets/avatars/male/39.jpg","1234"))
-        usersList.add(User("Valeria",4,"https://xsgames.co/randomusers/assets/avatars/male/32.jpg","1234"))
-        usersList.add(User("Nito",7,"https://xsgames.co/randomusers/assets/avatars/male/42.jpg","1234"))
-        usersList.add(User("Andrea",1,"https://xsgames.co/randomusers/assets/avatars/male/41.jpg","1234"))
-        usersList.add(User("Jazmin",6,"https://xsgames.co/randomusers/assets/avatars/male/30.jpg","1234"))
-        usersList.add(User("Uberto",8,"https://xsgames.co/randomusers/assets/avatars/male/27.jpg","1234"))
-        usersList.add(User("Manuel",5,"https://xsgames.co/randomusers/assets/avatars/male/38.jpg","1234"))
+        usersList.add(User("Pepe",10.0,"https://xsgames.co/randomusers/assets/avatars/male/35.jpg","1234"))
+        usersList.add(User("Pedro",9.0,"https://xsgames.co/randomusers/assets/avatars/male/61.jpg","1234"))
+        usersList.add(User("Jose",8.0,"https://xsgames.co/randomusers/assets/avatars/male/64.jpg","1234"))
+        usersList.add(User("Guillermo",6.0,"https://xsgames.co/randomusers/assets/avatars/male/39.jpg","1234"))
+        usersList.add(User("Valeria",4.0,"https://xsgames.co/randomusers/assets/avatars/male/32.jpg","1234"))
+        usersList.add(User("Nito",7.0,"https://xsgames.co/randomusers/assets/avatars/male/42.jpg","1234"))
+        usersList.add(User("Andrea",1.0,"https://xsgames.co/randomusers/assets/avatars/male/41.jpg","1234"))
+        usersList.add(User("Jazmin",6.0,"https://xsgames.co/randomusers/assets/avatars/male/30.jpg","1234"))
+        usersList.add(User("Uberto",8.0,"https://xsgames.co/randomusers/assets/avatars/male/27.jpg","1234"))
+        usersList.add(User("Manuel",5.0,"https://xsgames.co/randomusers/assets/avatars/male/38.jpg","1234"))
 
 
         return v
@@ -52,7 +52,9 @@ class UsersFragment : Fragment() {
         super.onStart()
 
         adapter = UserAdapter(usersList) {
-            val actionDetails = UsersFragmentDirections.actionUsersFragmentToDetailsFragment2(usersList[it].name, usersList[it].score)
+            val actionDetails = UsersFragmentDirections.actionUsersFragmentToDetailsFragment2(usersList[it].name,
+                usersList[it].score.toFloat()
+            )
             v.findNavController().navigate(actionDetails)
         }
         recyclerUser.layoutManager = LinearLayoutManager(requireContext())
