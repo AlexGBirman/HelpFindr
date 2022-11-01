@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_navgraph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/actionLoginFragment4ToSignUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_clienteActivity"
+            app:destination="@id/clienteActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_prestadorActivity"
+            app:destination="@id/prestadorActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_clienteActivity"
+            app:destination="@id/clienteActivity" />
+        <action
+            android:id="@+id/action_signUpFragment_to_prestadorActivity"
+            app:destination="@id/prestadorActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/clienteActivity"
+        android:name="com.example.ejerciciorecyclerview.activities.ClienteActivity"
+        android:label="activity_cliente"
+        tools:layout="@layout/activity_cliente" />
+    <activity
+        android:id="@+id/prestadorActivity"
+        android:name="com.example.ejerciciorecyclerview.activities.PrestadorActivity"
+        android:label="activity_prestador"
+        tools:layout="@layout/activity_prestador" />
+</navigation>
