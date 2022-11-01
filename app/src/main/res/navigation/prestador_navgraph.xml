@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prestador_navgraph"
+    app:startDestination="@id/solicitudesFragment">
+
+    <fragment
+        android:id="@+id/solicitudesFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesFragment"
+        android:label="fragment_solicitudes"
+        tools:layout="@layout/fragment_solicitudes" >
+        <action
+            android:id="@+id/action_solicitudesFragment_to_solicitudDetalle"
+            app:destination="@id/solicitudDetalle" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudDetalle"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudDetalle"
+        android:label="fragment_solicitud_detalle"
+        tools:layout="@layout/fragment_solicitud_detalle" >
+        <argument
+            android:name="clientName"
+            app:argType="string" />
+        <argument
+            android:name="precio"
+            app:argType="string" />
+        <argument
+            android:name="clientScore"
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+    </fragment>
+</navigation>

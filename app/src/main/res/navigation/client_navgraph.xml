@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/client_navgraph"
+    app:startDestination="@id/rubrosFragment2">
+
+    <fragment
+        android:id="@+id/rubrosFragment2"
+        android:name="com.example.ejerciciorecyclerview.fragments.RubrosFragment"
+        android:label="fragment_rubros"
+        tools:layout="@layout/fragment_rubros" >
+        <action
+            android:id="@+id/action_rubrosFragment2_to_prestadoresFragment2"
+            app:destination="@id/prestadoresFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/prestadoresFragment2"
+        android:name="com.example.ejerciciorecyclerview.fragments.PrestadoresFragment"
+        android:label="fragment_prestadores"
+        tools:layout="@layout/fragment_prestadores" >
+        <action
+            android:id="@+id/action_prestadoresFragment2_to_prestadorDetalle2"
+            app:destination="@id/prestadorDetalle2" />
+        <argument
+            android:name="txtRubro"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/prestadorDetalle2"
+        android:name="com.example.ejerciciorecyclerview.fragments.PrestadorDetalle"
+        android:label="fragment_prestador_detalle"
+        tools:layout="@layout/fragment_prestador_detalle" >
+        <action
+            android:id="@+id/action_prestadorDetalle2_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <argument
+            android:name="fullName"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+        <argument
+            android:name="txtRubro"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+</navigation>

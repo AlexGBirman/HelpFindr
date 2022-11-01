@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejerciciorecyclerview.R
+import com.example.ejerciciorecyclerview.activities.PrestadorActivityArgs
 import com.example.ejerciciorecyclerview.adapters.RubroAdapter
 import com.example.ejerciciorecyclerview.adapters.SolicitudAdapter
 import com.example.ejerciciorecyclerview.entities.Prestador
@@ -49,7 +50,7 @@ class SolicitudesFragment : Fragment() {
         listaDeSolicitudes = arrayListOf()
         geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-        val emplName = SolicitudesFragmentArgs.fromBundle(requireArguments()).employeeName
+        val emplName = PrestadorActivityArgs.fromBundle(requireArguments()).fullName
 
 
 

@@ -39,8 +39,12 @@ class SignUpFragment : Fragment() {
         super.onStart()
 
         btnClient.setOnClickListener {
-            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToUsersFragment()
-            v.findNavController().navigate(actionHome)
+            val actionHomeClient = SignUpFragmentDirections.actionSignUpFragment2ToClientActivity()
+            v.findNavController().navigate(actionHomeClient)
+        }
+        btnEmployee.setOnClickListener {
+            val actionHomeEmployee = SignUpFragmentDirections.actionSignUpFragment2ToPrestadorActivity2("Juan Carlos")
+            v.findNavController().navigate(actionHomeEmployee)
         }
     }
 

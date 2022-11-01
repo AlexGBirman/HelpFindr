@@ -62,7 +62,7 @@ class RubrosFragment : Fragment() {
                 recyclerRubros.layoutManager = LinearLayoutManager(requireContext())
                 adapter = RubroAdapter(listaDeRubros){
                     txtRubro = listaDeRubros[it].rubro
-                    val actionRubroToPrestadores = RubrosFragmentDirections.actionRubrosToPrestadores(txtRubro)
+                    val actionRubroToPrestadores = RubrosFragmentDirections.actionRubrosFragment2ToPrestadoresFragment2(txtRubro)
                     v.findNavController().navigate(actionRubroToPrestadores)
                 }
                 recyclerRubros.adapter = adapter

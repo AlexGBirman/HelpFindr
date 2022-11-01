@@ -73,7 +73,7 @@ class PrestadoresFragment : Fragment() {
                         adresses = geocoder.getFromLocation(geoLocalization.latitude, geoLocalization.longitude, 1)
                         address = adresses[0].getAddressLine(0)
                     }
-                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address, phone, txtRubro)
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresFragment2ToPrestadorDetalle2(fullName, address, phone,txtRubro)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())

@@ -44,9 +44,9 @@ class SolicitudDetalle : Fragment() {
 
         txtName.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientName
         txtScore.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientScore
-        txtDireccion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).direccion
+        txtDireccion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).address
         txtPrecio.text = SolicitudDetalleArgs.fromBundle(requireArguments()).precio
-        txtDescripcion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).descripcionTrabajo
+        txtDescripcion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).desc
 
         return v
     }
