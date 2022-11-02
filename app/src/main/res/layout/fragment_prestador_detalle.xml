@@ -43,10 +43,28 @@
         android:id="@+id/btnContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="200dp"
         android:text="SOLICITAR"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="215dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:fontFamily="serif"
+        android:hint="Describa su pedido"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/geoLoc" />
 

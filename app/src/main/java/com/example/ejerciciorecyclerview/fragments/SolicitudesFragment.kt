@@ -28,7 +28,7 @@ class SolicitudesFragment : Fragment() {
 
     lateinit var v : View
     lateinit var recyclerSolicitudes : RecyclerView
-    lateinit var listaDeSolicitudes : ArrayList<Servicio>
+    lateinit var listaDeSolicitudes : List<Servicio>
     lateinit var adapter : SolicitudAdapter
     lateinit var prestador : Prestador
     var db = Firebase.firestore
@@ -63,7 +63,7 @@ class SolicitudesFragment : Fragment() {
                 if(it != null){
                     prestador = it.toObject(Prestador::class.java)!!
 
-                    listaDeSolicitudes = prestador?.trabajos!!
+                    listaDeSolicitudes = prestador?.trabajos!!.filter { !it.aceptado }
 
                     Log.d("testeo", "$prestador")
                     Log.d("testeo", "$listaDeSolicitudes")
@@ -81,7 +81,7 @@ class SolicitudesFragment : Fragment() {
                     val addresses = geocoder.getFromLocation(servicioBuscado.geolocalizacion.latitude, servicioBuscado.geolocalizacion.longitude, 1)
                     val address = addresses[0].getAddressLine(0)
 
-                    val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address)
+                    val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName)
                     v.findNavController().navigate(actionSoliToDetails)
                 }
 

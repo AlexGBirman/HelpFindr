@@ -134,5 +134,8 @@
         <argument
             android:name="direccion"
             app:argType="string" />
+        <argument
+            android:name="proveedorName"
+            app:argType="string" />
     </fragment>
 </navigation>
