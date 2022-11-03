@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,7 @@ class PrestadoresFragment : Fragment() {
     lateinit var adresses: List<Address>
     lateinit var address : String
     lateinit var phone : String
+    lateinit var btnMap : Button
     var db = Firebase.firestore
 
 
@@ -51,6 +53,13 @@ class PrestadoresFragment : Fragment() {
         recyclerPrestadores = v.findViewById(R.id.recPrest)
         listaDePrestadores = arrayListOf()
         txtRubro = PrestadoresFragmentArgs.fromBundle(requireArguments()).txtRubro
+        btnMap = v.findViewById(R.id.btnMap)
+
+        btnMap.setOnClickListener {
+            val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresFragmentToMapFragment(txtRubro)
+            v.findNavController().navigate(actionPrestadoresToDetalle)
+        }
+
 
         geocoder = Geocoder(requireContext(), Locale.getDefault())
 
