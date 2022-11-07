@@ -10,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-25dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="92dp">
 
         <Button
             android:id="@+id/btnClient"
@@ -27,8 +27,9 @@
             android:id="@+id/btnEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="133dp"
             android:text="Employee"
-            app:layout_constraintBottom_toTopOf="@+id/guideline7"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnClient" />
@@ -38,25 +39,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="1.0" />
 
         <EditText
             android:id="@+id/txtSignName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Email"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
+            tools:layout_editor_absoluteY="16dp" />
 
         <EditText
             android:id="@+id/txtSignPass"
@@ -64,8 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ems="10"
+            android:hint="Password"
             android:inputType="textPersonName"
-            android:text="Pass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtSignName" />
@@ -74,12 +76,67 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="52dp"
             android:text="Sign up as"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.317"
+            app:layout_constraintHorizontal_bias="0.314"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSignPass" />
+            app:layout_constraintTop_toBottomOf="@+id/txtRubroSignUp" />
+
+        <EditText
+            android:id="@+id/txtPersonNameSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignPass"
+            tools:layout_editor_absoluteX="100dp" />
+
+        <EditText
+            android:id="@+id/txtAddressSignUp"
+            android:layout_width="253dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:hint="Address(street name, number)"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp"
+            tools:layout_editor_absoluteX="79dp" />
+
+        <EditText
+            android:id="@+id/txtPersonLastNameSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonNameSignUp"
+            tools:layout_editor_absoluteX="101dp" />
+
+        <EditText
+            android:id="@+id/txtRubroSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Rubro (only if employee)"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumberSIgnUp"
+            tools:layout_editor_absoluteX="100dp" />
+
+        <EditText
+            android:id="@+id/txtPhoneNumberSIgnUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:ems="10"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp"
+            tools:layout_editor_absoluteX="100dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

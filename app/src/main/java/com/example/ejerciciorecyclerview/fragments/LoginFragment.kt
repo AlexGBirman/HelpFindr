@@ -1,6 +1,8 @@
 
 package com.example.ejerciciorecyclerview.fragments
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,10 +16,14 @@ import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Rubro
 import com.example.ejerciciorecyclerview.entities.User
+import com.example.ejerciciorecyclerview.entities.Usuario
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 import kotlinx.coroutines.tasks.await
 import kotlin.reflect.typeOf
 
@@ -29,10 +35,8 @@ class LoginFragment : Fragment() {
     private lateinit var txtPass : EditText
     private lateinit var btnLogin : Button
     private lateinit var btnSignUp : Button
-
-    private var userList : MutableList<User> = mutableListOf()
-
-
+    private lateinit var auth : FirebaseAuth
+    var db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +44,11 @@ class LoginFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.fragment_login, container, false)
 
+        auth = Firebase.auth
         txtUser = v.findViewById(R.id.txtUser)
         txtPass = v.findViewById(R.id.txtPass)
         btnLogin = v.findViewById(R.id.btnLogin)
         btnSignUp = v.findViewById(R.id.btnSignUp)
-
-        userList.add(User("Alex", 10.0, "", "1234"))
-        userList.add(User("Karen", 10.0, "", "1234"))
-        userList.add(User("Milka", 10.0, "", "1234"))
 
         return v
     }
@@ -56,28 +57,55 @@ class LoginFragment : Fragment() {
         super.onStart()
 
 
+
         btnSignUp.setOnClickListener {
             val actionSignUp = LoginFragmentDirections.actionLoginFragment4ToSignUpFragment()
             v.findNavController().navigate(actionSignUp)
         }
 
         btnLogin.setOnClickListener {
-            if (txtUser.text.isEmpty() && txtPass.text.isEmpty()) {
-                Snackbar.make(it, "Ingrese usuario y contraseña", Snackbar.LENGTH_SHORT).show()
-            }
-            else if(txtUser.text.toString() == "Juan Carlos" && txtPass.text.toString() == "1234"){
-                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
-                v.findNavController().navigate(actionLogin)
+            auth.signInWithEmailAndPassword(txtUser.text.toString(), txtPass.text.toString())
+                .addOnCompleteListener(requireContext() as Activity){task ->
+                    if(task.isSuccessful){
+                        Log.d("testo", "signInWithEmail:success")
+                        val user = auth.currentUser
+                        if (user != null) {
+                            db.collection("usuarios")
+                                .document(user.uid)
+                                .get()
+                                .addOnSuccessListener { snapshot ->
+                                    if(snapshot != null){
+                                        val usuarioBuscado = snapshot.toObject(Usuario::class.java)
 
-            }
-            else if (userList.firstOrNull { it.name == txtUser.text.toString() } != null && userList.firstOrNull { it.pass == txtPass.text.toString() } != null){
-                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()
-                v.findNavController().navigate(actionLogin)
-            }
-            else {
-                Snackbar.make(it, "Usuario y/o contraseña incorrectos", Snackbar.LENGTH_SHORT).show()
-            }
+                                        if(usuarioBuscado != null){
+                                            val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()
+                                            v.findNavController().navigate(actionLogin)
+                                        }
+                                    }else{
+                                        db.collection("prestadores")
+                                            .document(user.uid)
+                                            .get()
+                                            .addOnSuccessListener { snapshotPrestador ->
+                                                if (snapshotPrestador != null){
+                                                    val prestadorBuscado = snapshotPrestador.toObject(Prestador::class.java)
+
+                                                    if(prestadorBuscado != null){
+                                                        val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
+                                                        v.findNavController().navigate(actionLogin)
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
+                        }
+
+                    }else{
+                        Snackbar.make(it, "Usuario y/o contraseña incorrectos", Snackbar.LENGTH_SHORT).show()
+                    }
+
+                }
         }
+
     }
 
 }
