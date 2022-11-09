@@ -31,6 +31,7 @@ class SolicitudDetalle : Fragment() {
     lateinit var txtPrecio : TextView
     lateinit var txtDescripcion : TextView
     lateinit var btnConfirmar : Button
+    lateinit var btnRechazar : Button
     lateinit var fullName : String
     val db = Firebase.firestore
     lateinit var auth : FirebaseAuth
@@ -54,7 +55,7 @@ class SolicitudDetalle : Fragment() {
         txtPrecio = v.findViewById(R.id.precio)
         txtDescripcion = v.findViewById(R.id.descripcion)
         btnConfirmar = v.findViewById(R.id.aceptar)
-
+        btnRechazar = v.findViewById(R.id.rechazarButton)
 
         txtName.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientName
         txtScore.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientScore
@@ -120,6 +121,25 @@ class SolicitudDetalle : Fragment() {
 
         }
 
+        btnRechazar.setOnClickListener {
+            docRef?.get()?.addOnSuccessListener { snapshot ->
+                if (snapshot != null) {
+                    val prestador = snapshot.toObject(Prestador::class.java)
+                    if (prestador != null) {
+                        var trabajoBuscado: Servicio =
+                            prestador.trabajos.firstOrNull { it.descripcion == txtDescripcion.text }!!
+                        if (trabajoBuscado != null) {
+                            trabajoBuscado.aceptado = false
+                            Snackbar.make(
+                                it,
+                                "Rechazaste el trabajo de ${txtName.text} .",
+                                BaseTransientBottomBar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
 
 
         return v
