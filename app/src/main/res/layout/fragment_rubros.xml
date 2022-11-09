@@ -9,10 +9,20 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recRubros"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="411dp"
+        android:layout_height="564dp" />
+
+    <Button
+        android:id="@+id/btnVerSolicitudes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="33dp"
+        android:text="Ver mis solicitudes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recRubros" />
 </androidx.constraintlayout.widget.ConstraintLayout>

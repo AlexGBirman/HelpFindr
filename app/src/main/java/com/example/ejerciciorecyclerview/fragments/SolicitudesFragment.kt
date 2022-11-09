@@ -74,7 +74,7 @@ class SolicitudesFragment : Fragment() {
 
                         Log.d("testeo", "$prestador")
                         Log.d("testeo", "$listaDeSolicitudes")
-                }
+                    }
 
                     adapter = SolicitudAdapter(listaDeSolicitudes){ soli ->
                         val servicioBuscado = listaDeSolicitudes[soli]

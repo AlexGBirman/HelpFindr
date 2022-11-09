@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_rubros_to_prestadores"
             app:destination="@id/prestadoresFragment" />
+        <action
+            android:id="@+id/action_rubrosFragment_to_misSolicitudes"
+            app:destination="@id/misSolicitudes" />
     </fragment>
     <fragment
         android:id="@+id/prestadoresFragment"
@@ -144,4 +147,9 @@
             android:name="proveedorName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/misSolicitudes"
+        android:name="com.example.ejerciciorecyclerview.fragments.MisSolicitudes"
+        android:label="fragment_mis_solicitudes"
+        tools:layout="@layout/fragment_mis_solicitudes" />
 </navigation>
