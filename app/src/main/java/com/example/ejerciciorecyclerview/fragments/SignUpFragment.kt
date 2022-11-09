@@ -80,6 +80,7 @@ class SignUpFragment : Fragment() {
             }
 
             var location = addresses[0]
+            Log.d("testeo", "$location")
 
             geolocalizacion = GeoPoint(location.latitude,location.longitude)
 
@@ -120,7 +121,7 @@ class SignUpFragment : Fragment() {
                         Log.d("testeo", "succes")
                         val user = auth.currentUser
                         var geolocalizacion = getLocFromAddress(txtAddress.text.toString())!!
-                        var prestador = Prestador(txtLastName.text.toString(), "PRESTADOR", txtName.text.toString(), txtRubro.text.toString(), geolocalizacion, txtPhoneNumber.text.toString())
+                        var prestador = Prestador(txtLastName.text.toString(), "PRESTADOR", txtName.text.toString(), txtRubro.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf())
 
                         if (user != null) {
                             db.collection("prestadores").document(user.uid).set(prestador)

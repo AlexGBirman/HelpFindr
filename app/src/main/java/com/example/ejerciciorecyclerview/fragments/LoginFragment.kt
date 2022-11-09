@@ -25,6 +25,9 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.app
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.reflect.typeOf
 
 
@@ -64,46 +67,51 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
-            auth.signInWithEmailAndPassword(txtUser.text.toString(), txtPass.text.toString())
-                .addOnCompleteListener(requireContext() as Activity){task ->
-                    if(task.isSuccessful){
-                        Log.d("testo", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        if (user != null) {
-                            db.collection("usuarios")
-                                .document(user.uid)
-                                .get()
-                                .addOnSuccessListener { snapshot ->
-                                    if(snapshot != null){
-                                        val usuarioBuscado = snapshot.toObject(Usuario::class.java)
 
-                                        if(usuarioBuscado != null){
-                                            val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()
-                                            v.findNavController().navigate(actionLogin)
-                                        }
-                                    }else{
-                                        db.collection("prestadores")
-                                            .document(user.uid)
-                                            .get()
-                                            .addOnSuccessListener { snapshotPrestador ->
-                                                if (snapshotPrestador != null){
-                                                    val prestadorBuscado = snapshotPrestador.toObject(Prestador::class.java)
+            if(txtUser.text.toString().isNotEmpty() && txtPass.text.toString().isNotEmpty()){
+                auth.signInWithEmailAndPassword(txtUser.text.toString(), txtPass.text.toString())
+                    .addOnCompleteListener(requireContext() as Activity){task ->
+                        if(task.isSuccessful){
+                            Log.d("testo", "signInWithEmail:success")
+                            val user = auth.currentUser
+                            if (user != null) {
+                                db.collection("usuarios")
+                                    .document(user.uid)
+                                    .get()
+                                    .addOnSuccessListener { snapshot ->
+                                        if(snapshot != null){
+                                            val usuarioBuscado = snapshot.toObject(Usuario::class.java)
 
-                                                    if(prestadorBuscado != null){
-                                                        val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
-                                                        v.findNavController().navigate(actionLogin)
+                                            if(usuarioBuscado != null){
+                                                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToRubrosFragment()
+                                                v.findNavController().navigate(actionLogin)
+                                            }else{
+                                                db.collection("prestadores")
+                                                    .document(user.uid)
+                                                    .get()
+                                                    .addOnSuccessListener { snapshotPrestador ->
+                                                        if (snapshotPrestador != null){
+                                                            val prestadorBuscado = snapshotPrestador.toObject(Prestador::class.java)
+
+                                                            if(prestadorBuscado != null){
+                                                                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
+                                                                v.findNavController().navigate(actionLogin)
+                                                            }
+                                                        }
                                                     }
-                                                }
                                             }
+                                        }
                                     }
-                                }
+                            }
+
+                        }else{
+                            Snackbar.make(it, "Usuario y/o contraseña incorrectos", Snackbar.LENGTH_SHORT).show()
                         }
-
-                    }else{
-                        Snackbar.make(it, "Usuario y/o contraseña incorrectos", Snackbar.LENGTH_SHORT).show()
                     }
+            }else{
+                Snackbar.make(it, "Por favo, ingrese un valor en las casillas", Snackbar.LENGTH_SHORT).show()
 
-                }
+            }
         }
 
     }

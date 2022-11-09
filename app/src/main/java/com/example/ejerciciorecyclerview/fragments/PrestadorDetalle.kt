@@ -1,8 +1,4 @@
 package com.example.ejerciciorecyclerview.fragments
-
-import android.content.ClipDescription
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,20 +7,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
 import com.example.ejerciciorecyclerview.entities.User
+import com.example.ejerciciorecycvalerview.fragments.TimePickerFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.sql.Time
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.Date
 
 
 class PrestadorDetalle : Fragment() {
@@ -41,6 +39,11 @@ class PrestadorDetalle : Fragment() {
     lateinit var txtGeo : TextView
     lateinit var proveedores : List<Prestador>
     lateinit var editDescription: EditText
+    lateinit var etFecha : EditText
+    lateinit var laFecha : LocalDate
+    lateinit var etHora : EditText
+    lateinit var laHora : Time
+
     val db = Firebase.firestore
 
 
@@ -53,6 +56,12 @@ class PrestadorDetalle : Fragment() {
         fullName = PrestadorDetalleArgs.fromBundle(requireArguments()).fullName
         geoLocalization = PrestadorDetalleArgs.fromBundle(requireArguments()).geoLocalization
 
+        etFecha = v.findViewById(R.id.etFecha)
+        etHora = v.findViewById(R.id.etHora)
+
+        etFecha.setOnClickListener { showDatePickerDialog() }
+        etHora.setOnClickListener { showTimePickerDialog() }
+
         txtName = v.findViewById(R.id.fullName)
         txtGeo = v.findViewById(R.id.geoLoc)
         btnContact = v.findViewById(R.id.btnContact)
@@ -60,11 +69,12 @@ class PrestadorDetalle : Fragment() {
         var phone = PrestadorDetalleArgs.fromBundle(requireArguments()).phone
         var rubro = PrestadorDetalleArgs.fromBundle(requireArguments()).rubro
 
+        txtName.text = fullName
+        txtGeo.text = geoLocalization
+
         val docRef = db.collection("prestadores")
 
         btnContact.setOnClickListener{
-            /*val actionToMap = PrestadorDetalleDirections.actionPrestadorDetalleToMapFragment()
-            v.findNavController().navigate(actionToMap)*/
             docRef
                 .whereEqualTo("phone", phone)
                 .get()
@@ -72,40 +82,67 @@ class PrestadorDetalle : Fragment() {
                     if(snapshot != null){
                         proveedores = snapshot.toObjects(Prestador::class.java)
                         var proveedor = proveedores[0]
-                        proveedor.trabajos.add(Servicio("${editDescription.text}", 0.0, rubro,GeoPoint(12.43455,13.4568756), proveedor.nombre, User("Alex", 3.5, "","")))
-                        docRef.document(fullName).set(proveedor)
+
+                        var date = Date((laFecha.year - 1900),(laFecha.monthValue - 1),laFecha.dayOfMonth,laHora.hours,laHora.minutes)
+                        var fechaDeTrabajo = Timestamp(date)
+
+
+                        proveedor.trabajos.add(Servicio("${editDescription.text}", 0.0, rubro,GeoPoint(12.43455,13.4568756),
+                            proveedor.nombre, User("Alex", 3.5, "",""),fechaDeTrabajo))
+
+                        docRef.document(snapshot.documents[0].id).set(proveedor)
+
+                        make(it, "Solicitaste Exitosamente los servicios de $fullName, deberás aguardar su confirmación", LENGTH_SHORT).show()
                     }
-                    make(it, "Solicitaste Exitosamente los servicios de $fullName, deberás aguardar su confirmación", LENGTH_SHORT).show()
-
-
                 }
-
         }
 
-        /*docRef
-            .whereEqualTo("phone", phone)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                if(snapshot != null){
-                    proveedores = snapshot.toObjects(Prestador::class.java)
-                    var senior = proveedores[0]
-                    senior.trabajos.add(Servicio("Trabajo", 0.0, rubro,GeoPoint(0.0,0.0), senior.nombre))
-                    docRef.document(fullName).set(senior)
-                }
-            }*/
-
-        /*btnContact.setOnClickListener {
-            val url = "https://api.whatsapp.com/send?phone=+54$phone"
-
-            val openWhatsappIntent = Intent(Intent.ACTION_VIEW)
-            openWhatsappIntent.data = Uri.parse(url)
-            startActivity(openWhatsappIntent)
-        }*/
-
-        txtName.text = fullName
-        txtGeo.text = geoLocalization
 
         return v
+    }
+
+    private fun showTimePickerDialog() {
+        val timePicker = TimePickerFragment{hours, minutes -> onTimeSelected(hours,minutes)}
+
+        timePicker.show(childFragmentManager, "timePicker")
+    }
+
+    fun onTimeSelected(hours : Int, minutes: Int){
+        laHora = Time(hours,minutes,0)
+
+        Log.d("testeo", "$laHora")
+
+        etHora.setText("${laHora.hours}:${laHora.minutes}")
+    }
+
+    private fun showDatePickerDialog(){
+        val datePicker = DatePickerFragment {day,month, year -> onDaySelected(day,month,year)}
+
+        datePicker.show(childFragmentManager, "datePicker")
+    }
+
+    fun onDaySelected(day:Int, month:Int,year:Int){
+        var dia = day.toString()
+        var mes = (month+1).toString()
+        var anio = year.toString()
+
+        if(day < 10){
+            dia = "0$day"
+        }
+        if(month+1 < 10){
+           mes = "0${month + 1}"
+        }
+
+
+        var formatDate = "$anio-$mes-$dia"
+
+        laFecha = LocalDate.parse(formatDate)
+
+        etFecha.setText("${laFecha.year}/${laFecha.monthValue}/${laFecha.dayOfMonth}")
+
+
+        Log.d("testeo", "${laFecha.year}, ${laFecha.monthValue}, ${laFecha.dayOfMonth}")
+
     }
 
 }

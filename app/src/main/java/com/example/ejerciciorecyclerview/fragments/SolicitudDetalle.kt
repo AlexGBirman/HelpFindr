@@ -3,6 +3,7 @@ package com.example.ejerciciorecyclerview.fragments
 import android.location.Geocoder
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,9 @@ import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -29,6 +33,8 @@ class SolicitudDetalle : Fragment() {
     lateinit var btnConfirmar : Button
     lateinit var fullName : String
     val db = Firebase.firestore
+    lateinit var auth : FirebaseAuth
+    var todoBien = false
 
     companion object {
         fun newInstance() = SolicitudDetalle()
@@ -39,6 +45,7 @@ class SolicitudDetalle : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.fragment_solicitud_detalle, container, false)
+        auth = Firebase.auth
 
 
         txtName = v.findViewById(R.id.nameClient)
@@ -56,21 +63,49 @@ class SolicitudDetalle : Fragment() {
         txtDescripcion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).descripcionTrabajo
         fullName = SolicitudDetalleArgs.fromBundle(requireArguments()).proveedorName
 
-        val docRef = db.collection("prestadores").document(fullName)
+        val docRef = auth.currentUser?.let { db.collection("prestadores").document(it.uid) }
 
 
         btnConfirmar.setOnClickListener {
-            docRef
-                .get()
-                .addOnSuccessListener { snapshot ->
-                    if(snapshot != null){
-                        val prestador = snapshot.toObject(Prestador::class.java)
-                        if (prestador != null) {
-                            var trabajoBuscado : Servicio = prestador.trabajos.firstOrNull{ it.descripcion == txtDescripcion.text }!!
-                            if(trabajoBuscado != null){
+            docRef?.get()?.addOnSuccessListener { snapshot ->
+                if(snapshot != null){
+                    val prestador = snapshot.toObject(Prestador::class.java)
+                    if (prestador != null) {
+                        var trabajoBuscado : Servicio = prestador.trabajos.firstOrNull{ it.descripcion == txtDescripcion.text }!!
+                        if(trabajoBuscado != null){
+                            var listaAceptados = prestador.trabajos.filter { laburito -> laburito.aceptado }
+                            if(listaAceptados.isNotEmpty()){
+                                for(laburo in listaAceptados){
+                                    var tiempo1 = trabajoBuscado.fecha
+                                    var tiempo2 = laburo.fecha
+
+                                    var dif = tiempo1.toDate().time - tiempo2.toDate().time
+
+                                    if(dif < 0){
+                                        dif = dif*(-1)
+                                    }
+                                    dif = dif/(60*60*1000)%60
+                                    if(dif <= 2){
+                                        Snackbar.make(
+                                            it,
+                                            "No puedes aceptar el trabajo, tiene conflictos con otros trabajos ya aceptados",
+                                            BaseTransientBottomBar.LENGTH_SHORT
+                                        ).show()
+                                        break
+                                    }else{
+                                        todoBien = true
+                                    }
+                                }
+                            }else{
+                                todoBien = true
+                            }
+                            if(todoBien){
                                 trabajoBuscado.aceptado = true
 
-                                db.collection("prestadores").document(fullName).set(prestador)
+                                auth.currentUser?.let { it1 ->
+                                    db.collection("prestadores").document(
+                                        it1.uid).set(prestador)
+                                }
 
                                 Snackbar.make(
                                     it,
@@ -81,6 +116,7 @@ class SolicitudDetalle : Fragment() {
                         }
                     }
                 }
+            }
 
         }
 

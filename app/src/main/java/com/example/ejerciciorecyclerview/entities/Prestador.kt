@@ -2,7 +2,7 @@ package com.example.ejerciciorecyclerview.entities
 
 import com.google.firebase.firestore.GeoPoint
 
-class Prestador(apellido: String, app_role:String, nombre: String, rubro: String, geolocalizacion: GeoPoint?, phone: String?, trabajos: ArrayList<Servicio>? = null)
+class Prestador(apellido: String, app_role:String, nombre: String, rubro: String, geolocalizacion: GeoPoint?, phone: String?, trabajos: ArrayList<Servicio>)
 {
     var apellido: String
     var app_role: String

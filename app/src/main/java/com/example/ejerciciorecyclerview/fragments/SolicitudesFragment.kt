@@ -18,6 +18,8 @@ import com.example.ejerciciorecyclerview.adapters.SolicitudAdapter
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Rubro
 import com.example.ejerciciorecyclerview.entities.Servicio
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -33,6 +35,7 @@ class SolicitudesFragment : Fragment() {
     lateinit var prestador : Prestador
     var db = Firebase.firestore
     lateinit var geocoder : Geocoder
+    lateinit var auth : FirebaseAuth
 
     companion object {
         fun newInstance() = SolicitudesFragment()
@@ -45,6 +48,7 @@ class SolicitudesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.fragment_solicitudes, container, false)
+        auth = Firebase.auth
         recyclerSolicitudes = v.findViewById(R.id.solicitudRec)
         listaDeSolicitudes = arrayListOf()
         geocoder = Geocoder(requireContext(), Locale.getDefault())
@@ -53,40 +57,44 @@ class SolicitudesFragment : Fragment() {
 
 
 
-        val docRef = db.collection("prestadores").document(emplName)
+        val docRef = db.collection("prestadores")
+
+
         recyclerSolicitudes.layoutManager = LinearLayoutManager(requireContext())
 
 
-        docRef
-            .get()
-            .addOnSuccessListener {
-                if(it != null){
-                    prestador = it.toObject(Prestador::class.java)!!
+        auth.currentUser?.let {
+            docRef.document(it.uid)
+                .get()
+                .addOnSuccessListener {snapshot ->
+                    if(snapshot != null){
+                        prestador = snapshot.toObject(Prestador::class.java)!!
 
-                    listaDeSolicitudes = prestador?.trabajos!!.filter { !it.aceptado }
+                        listaDeSolicitudes = prestador?.trabajos!!.filter {servicio ->  !servicio.aceptado }
 
-                    Log.d("testeo", "$prestador")
-                    Log.d("testeo", "$listaDeSolicitudes")
+                        Log.d("testeo", "$prestador")
+                        Log.d("testeo", "$listaDeSolicitudes")
                 }
 
-                adapter = SolicitudAdapter(listaDeSolicitudes){ soli ->
-                    val servicioBuscado = listaDeSolicitudes[soli]
+                    adapter = SolicitudAdapter(listaDeSolicitudes){ soli ->
+                        val servicioBuscado = listaDeSolicitudes[soli]
 
-                    val desc = servicioBuscado.descripcion
-                    val fullName = prestador.nombre + " " + prestador.apellido
-                    val clientName = servicioBuscado.cliente.name
-                    val clientScore = servicioBuscado.cliente.score.toString()
-                    val precio = servicioBuscado.precio.toString()
+                        val desc = servicioBuscado.descripcion
+                        val fullName = prestador.nombre + " " + prestador.apellido
+                        val clientName = servicioBuscado.cliente.name
+                        val clientScore = servicioBuscado.cliente.score.toString()
+                        val precio = servicioBuscado.precio.toString()
 
-                    val addresses = geocoder.getFromLocation(servicioBuscado.geolocalizacion.latitude, servicioBuscado.geolocalizacion.longitude, 1)
-                    val address = addresses[0].getAddressLine(0)
+                        val addresses = geocoder.getFromLocation(servicioBuscado.geolocalizacion.latitude, servicioBuscado.geolocalizacion.longitude, 1)
+                        val address = addresses[0].getAddressLine(0)
 
-                    val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName)
-                    v.findNavController().navigate(actionSoliToDetails)
+                        val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName)
+                        v.findNavController().navigate(actionSoliToDetails)
+                    }
+
+                    recyclerSolicitudes.adapter = adapter
                 }
-
-                recyclerSolicitudes.adapter = adapter
-            }
+        }
 
 
 
