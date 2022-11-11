@@ -130,7 +130,7 @@ class SolicitudDetalle : Fragment() {
                             prestador.trabajos.firstOrNull { it.descripcion == txtDescripcion.text }!!
                         if (trabajoBuscado != null) {
                             trabajoBuscado.aceptado = false
-                            prestador.trabajos.remove(trabajoBuscado)
+                       //     prestador.trabajos.remove(trabajoBuscado)
                             Snackbar.make(
                                 it,
                                 "Rechazaste el trabajo de ${txtName.text} .",
