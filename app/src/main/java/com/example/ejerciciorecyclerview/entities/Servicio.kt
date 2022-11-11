@@ -6,7 +6,7 @@ import java.sql.Time
 import java.time.LocalDate
 import java.util.*
 
-class Servicio(descripcion: String, precio: Double, rubro: String, geolocalizacion: GeoPoint?, prestador: String, cliente: User, fecha: Timestamp)
+class Servicio(descripcion: String, precio: Double, rubro: String, geolocalizacion: GeoPoint?, prestador: String, cliente: User, fecha: Timestamp, telefonoUsuario:String, telefonoPrestador : String)
 {
     var descripcion: String
     var precio: Double
@@ -16,6 +16,8 @@ class Servicio(descripcion: String, precio: Double, rubro: String, geolocalizaci
     var aceptado :  Boolean
     var cliente : User
     var fecha : Timestamp
+    var telefonoUsuario : String
+    var telefonoPrestador : String
 
 
     init{
@@ -27,12 +29,14 @@ class Servicio(descripcion: String, precio: Double, rubro: String, geolocalizaci
         this.aceptado = false
         this.cliente = cliente!!
         this.fecha = fecha!!
+        this.telefonoUsuario = telefonoUsuario!!
+        this.telefonoPrestador = telefonoPrestador!!
     }
 
-    constructor() : this("",0.0,"", GeoPoint(0.0,0.0),"", User("",0.0,"",""), Timestamp(Date()))
+    constructor() : this("",0.0,"", GeoPoint(0.0,0.0),"", User("",0.0,"",""), Timestamp(Date()), "","")
 
     override fun toString(): String {
-        return "Prestador(Descripcion='$descripcion', Precio='$precio', rubro='$rubro', Localizacion: $geolocalizacion), Prestador: $prestador, Cliente: ${cliente.name}, Fecha: $fecha"
+        return "Prestador(Descripcion='$descripcion', Precio='$precio', rubro='$rubro', Localizacion: $geolocalizacion), Prestador: $prestador, Cliente: ${cliente.name}, Fecha: $fecha, Phone User: $telefonoUsuario, Phone Prestador: $telefonoPrestador"
     }
 
 }

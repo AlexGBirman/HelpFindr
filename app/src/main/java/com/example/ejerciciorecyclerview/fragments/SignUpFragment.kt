@@ -101,7 +101,7 @@ class SignUpFragment : Fragment() {
                         Log.d("testeo", "succes")
                         val user = auth.currentUser
                         var geolocalizacion = getLocFromAddress(txtAddress.text.toString())!!
-                        var usuario = Usuario(txtName.text.toString(), txtLastName.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf())
+                        var usuario = Usuario(txtName.text.toString(), txtLastName.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf(), arrayListOf())
 
                         if (user != null) {
                             db.collection("usuarios").document(user.uid).set(usuario)
@@ -121,7 +121,7 @@ class SignUpFragment : Fragment() {
                         Log.d("testeo", "succes")
                         val user = auth.currentUser
                         var geolocalizacion = getLocFromAddress(txtAddress.text.toString())!!
-                        var prestador = Prestador(txtLastName.text.toString(), "PRESTADOR", txtName.text.toString(), txtRubro.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf())
+                        var prestador = Prestador(txtLastName.text.toString(), "PRESTADOR", txtName.text.toString(), txtRubro.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf(), arrayListOf())
 
                         if (user != null) {
                             db.collection("prestadores").document(user.uid).set(prestador)

@@ -4,16 +4,19 @@ import android.content.Context
 import android.location.Geocoder
 import com.google.firebase.firestore.GeoPoint
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class Usuario(nombre: String, apellido: String, geolocalizacion: GeoPoint, phone: String, contrataciones: List<Servicio>) {
+class Usuario(nombre: String, apellido: String, geolocalizacion: GeoPoint, phone: String, contrataciones: ArrayList<Servicio>, puntajes : ArrayList<Float>) {
     var nombre : String
     var apellido : String
     var geolocalizacion : GeoPoint
     var phone : String
-    var contrataciones : List<Servicio>
+    var contrataciones : ArrayList<Servicio>
+    var puntajes : ArrayList<Float>
+    var puntajeTotal : Float
 
-    constructor() : this("","", GeoPoint(1.0,1.0),"", arrayListOf())
+    constructor() : this("","", GeoPoint(1.0,1.0),"", arrayListOf(), arrayListOf())
 
     init {
         this.nombre = nombre!!
@@ -21,6 +24,18 @@ class Usuario(nombre: String, apellido: String, geolocalizacion: GeoPoint, phone
         this.geolocalizacion = geolocalizacion!!
         this.phone = phone!!
         this.contrataciones = contrataciones!!
+        this.puntajes = puntajes!!
+        this.puntajeTotal = calcPuntajeTotal(this.puntajes)
+    }
+
+    private fun calcPuntajeTotal(listaPuntajes:ArrayList<Float>) : Float{
+        var sumaTotal = 0.0.toFloat()
+
+        if(listaPuntajes.isNotEmpty()){
+            sumaTotal = listaPuntajes.sum()/listaPuntajes.size
+        }
+
+        return sumaTotal
     }
 
     fun getDireccion(context: Context): String? {

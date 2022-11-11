@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_rubros_to_prestadores"
             app:destination="@id/prestadoresFragment" />
+        <action
+            android:id="@+id/action_rubrosFragment_to_solicitudesDelUsuarioFragment"
+            app:destination="@id/solicitudesDelUsuarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/prestadoresFragment"
@@ -142,6 +145,29 @@
             app:argType="string" />
         <argument
             android:name="proveedorName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudesDelUsuarioFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesDelUsuarioFragment"
+        android:label="fragment_solicitudes_del_usuario"
+        tools:layout="@layout/fragment_solicitudes_del_usuario" >
+        <action
+            android:id="@+id/action_solicitudesDelUsuarioFragment_to_solicitudDetalleUsuarioFragment"
+            app:destination="@id/solicitudDetalleUsuarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudDetalleUsuarioFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudDetalleUsuarioFragment"
+        android:label="SolicitudDetalleUsuarioFragment" >
+        <argument
+            android:name="nombreDelPrestador"
+            app:argType="string" />
+        <argument
+            android:name="descDeLaSoli"
+            app:argType="string" />
+        <argument
+            android:name="numeroDeTelefonoPrestador"
             app:argType="string" />
     </fragment>
 </navigation>

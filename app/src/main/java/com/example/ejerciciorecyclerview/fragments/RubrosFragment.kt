@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class RubrosFragment : Fragment() {
     lateinit var recyclerRubros : RecyclerView
     lateinit var listaDeRubros : ArrayList<Rubro>
     lateinit var adapter : RubroAdapter
+    lateinit var btnASolicitudes : Button
     var db = Firebase.firestore
 
     companion object {
@@ -45,9 +47,15 @@ class RubrosFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.fragment_rubros, container, false)
         recyclerRubros = v.findViewById(R.id.recRubros)
+        btnASolicitudes = v.findViewById(R.id.btnVerSolis)
         listaDeRubros = arrayListOf()
         lateinit var txtRubro : String
         val docRef = db.collection("rubros")
+
+        btnASolicitudes.setOnClickListener {
+            val actionToSolicitudesDelUsuario = RubrosFragmentDirections.actionRubrosFragmentToSolicitudesDelUsuarioFragment()
+            v.findNavController().navigate(actionToSolicitudesDelUsuario)
+        }
 
         docRef
             .get()
