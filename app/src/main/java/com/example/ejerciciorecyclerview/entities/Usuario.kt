@@ -38,6 +38,11 @@ class Usuario(nombre: String, apellido: String, geolocalizacion: GeoPoint, phone
         return sumaTotal
     }
 
+    fun agregarPuntaje(punto: Float){
+        this.puntajes.add(punto)
+        this.puntajeTotal = this.calcPuntajeTotal(this.puntajes)
+    }
+
     fun getDireccion(context: Context): String? {
         var geocoder = Geocoder(context, Locale.getDefault())
 

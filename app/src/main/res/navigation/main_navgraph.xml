@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_solicitudesFragment_to_solicitudDetalle"
             app:destination="@id/solicitudDetalle" />
+        <action
+            android:id="@+id/action_solicitudesFragment_to_solicitudesAceptadasFragment"
+            app:destination="@id/solicitudesAceptadasFragment" />
     </fragment>
     <fragment
         android:id="@+id/solicitudDetalle"
@@ -168,6 +171,29 @@
             app:argType="string" />
         <argument
             android:name="numeroDeTelefonoPrestador"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudesAceptadasFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesAceptadasFragment"
+        android:label="fragment_solicitudes_aceptadas"
+        tools:layout="@layout/fragment_solicitudes_aceptadas" >
+        <action
+            android:id="@+id/action_solicitudesAceptadasFragment_to_solisAceptadasDetalleFragment"
+            app:destination="@id/solisAceptadasDetalleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solisAceptadasDetalleFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolisAceptadasDetalleFragment"
+        android:label="SolisAceptadasDetalleFragment" >
+        <argument
+            android:name="nombreCliente"
+            app:argType="string" />
+        <argument
+            android:name="descSoliAceptada"
+            app:argType="string" />
+        <argument
+            android:name="numeroTelCliente"
             app:argType="string" />
     </fragment>
 </navigation>

@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
+import com.example.ejerciciorecyclerview.entities.Usuario
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -33,6 +34,8 @@ class SolicitudDetalle : Fragment() {
     lateinit var btnConfirmar : Button
     lateinit var btnRechazar : Button
     lateinit var fullName : String
+    lateinit var clienteBuscado : Usuario
+
     val db = Firebase.firestore
     lateinit var auth : FirebaseAuth
     var todoBien = false
@@ -103,16 +106,37 @@ class SolicitudDetalle : Fragment() {
                             if(todoBien){
                                 trabajoBuscado.aceptado = true
 
-                                auth.currentUser?.let { it1 ->
-                                    db.collection("prestadores").document(
-                                        it1.uid).set(prestador)
-                                }
+                                db.collection("usuarios")
+                                    .whereEqualTo("phone",trabajoBuscado.telefonoUsuario)
+                                    .get()
+                                    .addOnSuccessListener {taskN2 ->
+                                        if(taskN2 != null){
+                                            var losClientes = taskN2.toObjects(Usuario::class.java)
 
-                                Snackbar.make(
-                                    it,
-                                    "Aceptaste el trabajo de ${txtName.text}, deberás comunicarte a través whatsapp para confirmar detalles",
-                                    BaseTransientBottomBar.LENGTH_SHORT
-                                ).show()
+                                            clienteBuscado = losClientes[0]
+                                            var tareaCliente = clienteBuscado.contrataciones.firstOrNull { it.descripcion == txtDescripcion.text }
+
+                                            if (tareaCliente != null) {
+                                                tareaCliente.aceptado = true
+                                            }
+
+                                            var docID = taskN2.documents[0].id
+
+                                            db.collection("usuarios").document(docID).set(clienteBuscado)
+
+                                            auth.currentUser?.let { it1 ->
+                                                db.collection("prestadores").document(
+                                                    it1.uid).set(prestador)
+                                            }
+
+                                            Snackbar.make(
+                                                it,
+                                                "Aceptaste el trabajo de ${txtName.text}, deberás comunicarte a través whatsapp para confirmar detalles",
+                                                BaseTransientBottomBar.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+                                    }
                             }
                         }
                     }
@@ -130,11 +154,36 @@ class SolicitudDetalle : Fragment() {
                             prestador.trabajos.firstOrNull { it.descripcion == txtDescripcion.text }!!
                         if (trabajoBuscado != null) {
                             trabajoBuscado.aceptado = false
-                            Snackbar.make(
-                                it,
-                                "Rechazaste el trabajo de ${txtName.text} .",
-                                BaseTransientBottomBar.LENGTH_SHORT
-                            ).show()
+
+                            db.collection("usuarios")
+                                .whereEqualTo("phone",trabajoBuscado.telefonoUsuario)
+                                .get()
+                                .addOnSuccessListener { taskN2 ->
+                                    if (taskN2 != null) {
+                                        var losClientes = taskN2.toObjects(Usuario::class.java)
+
+                                        clienteBuscado = losClientes[0]
+                                        var tareaCliente =
+                                            clienteBuscado.contrataciones.firstOrNull { it.descripcion == txtDescripcion.text }
+
+                                        if (tareaCliente != null) {
+                                            clienteBuscado.contrataciones.remove(tareaCliente)
+                                        }
+
+                                        var docID = taskN2.documents[0].id
+
+                                        db.collection("usuarios").document(docID)
+                                            .set(clienteBuscado)
+
+                                        prestador.trabajos.remove(trabajoBuscado)
+                                        docRef.set(prestador)
+                                        Snackbar.make(
+                                            it,
+                                            "Rechazaste el trabajo de ${txtName.text} .",
+                                            BaseTransientBottomBar.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
                         }
                     }
                 }

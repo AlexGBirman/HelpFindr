@@ -100,9 +100,9 @@ class SolicitudDetalleUsuarioFragment : Fragment() {
                             if(prestadores.isNotEmpty()){
                                 var prestador = prestadores[0]
 
-                                var soliBuscada = prestador.trabajos.filter { soli -> soli.descripcion == descripcionSoli }
+                                var soliBuscada = prestador.trabajos.firstOrNull { soli -> soli.descripcion == descripcionSoli }
 
-                                prestador.trabajos.remove(soliBuscada[0])
+                                prestador.trabajos.remove(soliBuscada)
 
                                 var docID = snapshot.documents[0].id
 
