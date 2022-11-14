@@ -50,6 +50,7 @@ class PrestadoresFragment : Fragment() {
     lateinit var fullName : String
     lateinit var geoLocalization : GeoPoint
     lateinit var usersGeolocalization : GeoPoint
+    lateinit var scorePrestador : String
     lateinit var txtRubro : String
     lateinit var recyclerPrestadores : RecyclerView
     lateinit var listaDePrestadores : ArrayList<Prestador>
@@ -120,7 +121,10 @@ class PrestadoresFragment : Fragment() {
                         adresses = geocoder.getFromLocation(geoLocalization.latitude, geoLocalization.longitude, 1)
                         address = adresses[0].getAddressLine(0)
                     }
-                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address, phone, txtRubro)
+
+                    scorePrestador = listaDePrestadores[it].puntajeTotal.toString()
+
+                    val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresToPrestadorDetalle(fullName,address, phone, txtRubro, scorePrestador)
                     v.findNavController().navigate(actionPrestadoresToDetalle)
                 }
                 recyclerPrestadores.layoutManager = LinearLayoutManager(requireContext())

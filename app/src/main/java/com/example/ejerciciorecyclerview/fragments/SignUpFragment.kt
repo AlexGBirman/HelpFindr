@@ -113,7 +113,7 @@ class SignUpFragment : Fragment() {
                             db.collection("usuarios").document(user.uid).set(usuario)
                                 .addOnSuccessListener { Log.d("testeo", "DocumentSnapshot successfully written!") }
                                 .addOnFailureListener { e -> Log.w("testeo", "Error writing document", e) }
-                            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToUsersFragment()
+                            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToLoginFragment4()
                             v.findNavController().navigate(actionHome)
                         }
                     }
@@ -135,7 +135,7 @@ class SignUpFragment : Fragment() {
 
                         if (user != null) {
                             db.collection("prestadores").document(user.uid).set(prestador)
-                            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToUsersFragment()
+                            val actionHome = SignUpFragmentDirections.actionSignUpFragmentToLoginFragment4()
                             v.findNavController().navigate(actionHome)
                         }
                     }

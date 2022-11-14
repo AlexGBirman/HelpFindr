@@ -36,9 +36,11 @@ class PrestadorDetalle : Fragment() {
     lateinit var v : View
     lateinit var fullName : String
     lateinit var geoLocalization : String
+    lateinit var puntajePrestador : String
     lateinit var btnContact : Button
     lateinit var txtName : TextView
     lateinit var txtGeo : TextView
+    lateinit var txtScore : TextView
     lateinit var proveedores : List<Prestador>
     lateinit var editDescription: EditText
     lateinit var etFecha : EditText
@@ -59,6 +61,7 @@ class PrestadorDetalle : Fragment() {
 
         fullName = PrestadorDetalleArgs.fromBundle(requireArguments()).fullName
         geoLocalization = PrestadorDetalleArgs.fromBundle(requireArguments()).geoLocalization
+        puntajePrestador = PrestadorDetalleArgs.fromBundle(requireArguments()).scorePrestador
 
         etFecha = v.findViewById(R.id.etFecha)
         etHora = v.findViewById(R.id.etHora)
@@ -70,11 +73,14 @@ class PrestadorDetalle : Fragment() {
         txtGeo = v.findViewById(R.id.geoLoc)
         btnContact = v.findViewById(R.id.btnContact)
         editDescription = v.findViewById(R.id.editDescription)
+        txtScore = v.findViewById(R.id.puntajeDelPrestadorDetalle)
+
         var phone = PrestadorDetalleArgs.fromBundle(requireArguments()).phone
         var rubro = PrestadorDetalleArgs.fromBundle(requireArguments()).rubro
 
         txtName.text = fullName
         txtGeo.text = geoLocalization
+        txtScore.text = puntajePrestador
 
         val docRef = db.collection("prestadores")
         val docUsers = db.collection("usuarios").document(auth.currentUser!!.uid)

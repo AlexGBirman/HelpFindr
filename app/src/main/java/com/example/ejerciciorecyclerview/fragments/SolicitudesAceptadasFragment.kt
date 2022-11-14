@@ -3,6 +3,7 @@ package com.example.ejerciciorecyclerview.fragments
 import android.location.Geocoder
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,8 @@ class SolicitudesAceptadasFragment : Fragment() {
                 var desc = contratacionBuscada.descripcion
                 var phone = contratacionBuscada.telefonoUsuario
                 var fecha = contratacionBuscada.fecha.toDate().time
+                var fechaParseada = contratacionBuscada.fecha.toDate()
+                Log.d("testeo", "$fechaParseada")
 
                 val actionToDetalleDeSolicitud = SolicitudesAceptadasFragmentDirections.actionSolicitudesAceptadasFragmentToSolisAceptadasDetalleFragment(nombreClient,desc,phone, fecha)
                 v.findNavController().navigate(actionToDetalleDeSolicitud)

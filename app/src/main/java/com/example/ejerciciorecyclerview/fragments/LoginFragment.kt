@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
                                                             val prestadorBuscado = snapshotPrestador.toObject(Prestador::class.java)
 
                                                             if(prestadorBuscado != null){
-                                                                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment("Juan Carlos")
+                                                                val actionLogin = LoginFragmentDirections.actionLoginFragment4ToSolicitudesFragment()
                                                                 v.findNavController().navigate(actionLogin)
                                                             }
                                                         }
