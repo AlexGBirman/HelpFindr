@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_rubros_to_prestadores"
             app:destination="@id/prestadoresFragment" />
+        <action
+            android:id="@+id/action_rubrosFragment_to_solicitudesDelUsuarioFragment"
+            app:destination="@id/solicitudesDelUsuarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/prestadoresFragment"
@@ -119,6 +122,9 @@
         <action
             android:id="@+id/action_solicitudesFragment_to_solicitudDetalle"
             app:destination="@id/solicitudDetalle" />
+        <action
+            android:id="@+id/action_solicitudesFragment_to_solicitudesAceptadasFragment"
+            app:destination="@id/solicitudesAceptadasFragment" />
     </fragment>
     <fragment
         android:id="@+id/solicitudDetalle"
@@ -143,5 +149,57 @@
         <argument
             android:name="proveedorName"
             app:argType="string" />
+        <argument
+            android:name="segundosTotales"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudesDelUsuarioFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesDelUsuarioFragment"
+        android:label="fragment_solicitudes_del_usuario"
+        tools:layout="@layout/fragment_solicitudes_del_usuario" >
+        <action
+            android:id="@+id/action_solicitudesDelUsuarioFragment_to_solicitudDetalleUsuarioFragment"
+            app:destination="@id/solicitudDetalleUsuarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudDetalleUsuarioFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudDetalleUsuarioFragment"
+        android:label="SolicitudDetalleUsuarioFragment" >
+        <argument
+            android:name="nombreDelPrestador"
+            app:argType="string" />
+        <argument
+            android:name="descDeLaSoli"
+            app:argType="string" />
+        <argument
+            android:name="numeroDeTelefonoPrestador"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitudesAceptadasFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesAceptadasFragment"
+        android:label="fragment_solicitudes_aceptadas"
+        tools:layout="@layout/fragment_solicitudes_aceptadas" >
+        <action
+            android:id="@+id/action_solicitudesAceptadasFragment_to_solisAceptadasDetalleFragment"
+            app:destination="@id/solisAceptadasDetalleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solisAceptadasDetalleFragment"
+        android:name="com.example.ejerciciorecyclerview.fragments.SolisAceptadasDetalleFragment"
+        android:label="SolisAceptadasDetalleFragment" >
+        <argument
+            android:name="nombreCliente"
+            app:argType="string" />
+        <argument
+            android:name="descSoliAceptada"
+            app:argType="string" />
+        <argument
+            android:name="numeroTelCliente"
+            app:argType="string" />
+        <argument
+            android:name="segundosTotales"
+            app:argType="long" />
     </fragment>
 </navigation>

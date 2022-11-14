@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.clearFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class SolicitudesFragment : Fragment() {
     var db = Firebase.firestore
     lateinit var geocoder : Geocoder
     lateinit var auth : FirebaseAuth
+    lateinit var btnSolisAceptadas : Button
 
     companion object {
         fun newInstance() = SolicitudesFragment()
@@ -52,8 +54,12 @@ class SolicitudesFragment : Fragment() {
         recyclerSolicitudes = v.findViewById(R.id.solicitudRec)
         listaDeSolicitudes = arrayListOf()
         geocoder = Geocoder(requireContext(), Locale.getDefault())
+        btnSolisAceptadas = v.findViewById(R.id.verSolisAceptadas)
 
-        val emplName = SolicitudesFragmentArgs.fromBundle(requireArguments()).employeeName
+        btnSolisAceptadas.setOnClickListener {
+            val actionSoliToAceptadas = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudesAceptadasFragment()
+            v.findNavController().navigate(actionSoliToAceptadas)
+        }
 
 
 
@@ -61,6 +67,8 @@ class SolicitudesFragment : Fragment() {
 
 
         recyclerSolicitudes.layoutManager = LinearLayoutManager(requireContext())
+
+
 
 
         auth.currentUser?.let {
@@ -84,11 +92,12 @@ class SolicitudesFragment : Fragment() {
                         val clientName = servicioBuscado.cliente.name
                         val clientScore = servicioBuscado.cliente.score.toString()
                         val precio = servicioBuscado.precio.toString()
+                        val fecha = servicioBuscado.fecha.toDate().time
 
                         val addresses = geocoder.getFromLocation(servicioBuscado.geolocalizacion.latitude, servicioBuscado.geolocalizacion.longitude, 1)
                         val address = addresses[0].getAddressLine(0)
 
-                        val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName)
+                        val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName, fecha)
                         v.findNavController().navigate(actionSoliToDetails)
                     }
 

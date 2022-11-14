@@ -12,10 +12,12 @@ import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
 import com.example.ejerciciorecyclerview.entities.User
+import com.example.ejerciciorecyclerview.entities.Usuario
 import com.example.ejerciciorecycvalerview.fragments.TimePickerFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar.make
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -43,8 +45,10 @@ class PrestadorDetalle : Fragment() {
     lateinit var laFecha : LocalDate
     lateinit var etHora : EditText
     lateinit var laHora : Time
+    lateinit var usuario : Usuario
 
     val db = Firebase.firestore
+    val auth = Firebase.auth
 
 
     override fun onCreateView(
@@ -73,6 +77,7 @@ class PrestadorDetalle : Fragment() {
         txtGeo.text = geoLocalization
 
         val docRef = db.collection("prestadores")
+        val docUsers = db.collection("usuarios").document(auth.currentUser!!.uid)
 
         btnContact.setOnClickListener{
             docRef
@@ -86,13 +91,24 @@ class PrestadorDetalle : Fragment() {
                         var date = Date((laFecha.year - 1900),(laFecha.monthValue - 1),laFecha.dayOfMonth,laHora.hours,laHora.minutes)
                         var fechaDeTrabajo = Timestamp(date)
 
+                        docUsers
+                            .get()
+                            .addOnSuccessListener { task ->
+                                if(task != null){
+                                    usuario = task.toObject(Usuario::class.java)!!
 
-                        proveedor.trabajos.add(Servicio("${editDescription.text}", 0.0, rubro,GeoPoint(12.43455,13.4568756),
-                            proveedor.nombre, User("Alex", 3.5, "",""),fechaDeTrabajo))
+                                    var servicioNuevo = Servicio("${editDescription.text}", 0.0, rubro,usuario.geolocalizacion,
+                                        proveedor.nombre, User((usuario.nombre + " " + usuario.apellido), usuario.puntajeTotal.toDouble(), "",""),fechaDeTrabajo,usuario.phone, phone)
 
-                        docRef.document(snapshot.documents[0].id).set(proveedor)
+                                    usuario.contrataciones.add(servicioNuevo)
+                                    proveedor.trabajos.add(servicioNuevo)
 
-                        make(it, "Solicitaste Exitosamente los servicios de $fullName, deberás aguardar su confirmación", LENGTH_SHORT).show()
+                                    docUsers.set(usuario)
+                                    docRef.document(snapshot.documents[0].id).set(proveedor)
+
+                                    make(it, "Solicitaste Exitosamente los servicios de $fullName, deberás aguardar su confirmación", LENGTH_SHORT).show()
+                                }
+                            }
                     }
                 }
         }

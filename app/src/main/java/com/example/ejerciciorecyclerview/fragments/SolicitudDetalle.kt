@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Servicio
+import com.example.ejerciciorecyclerview.entities.Usuario
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
 import java.util.*
 
 class SolicitudDetalle : Fragment() {
@@ -30,9 +32,12 @@ class SolicitudDetalle : Fragment() {
     lateinit var txtDireccion : TextView
     lateinit var txtPrecio : TextView
     lateinit var txtDescripcion : TextView
+    lateinit var txtFecha : TextView
     lateinit var btnConfirmar : Button
     lateinit var btnRechazar : Button
     lateinit var fullName : String
+    lateinit var clienteBuscado : Usuario
+
     val db = Firebase.firestore
     lateinit var auth : FirebaseAuth
     var todoBien = false
@@ -54,6 +59,7 @@ class SolicitudDetalle : Fragment() {
         txtDireccion = v.findViewById(R.id.direccion)
         txtPrecio = v.findViewById(R.id.precio)
         txtDescripcion = v.findViewById(R.id.descripcion)
+        txtFecha = v.findViewById(R.id.fechaTrabajo)
         btnConfirmar = v.findViewById(R.id.aceptar)
         btnRechazar = v.findViewById(R.id.rechazarButton)
 
@@ -63,6 +69,12 @@ class SolicitudDetalle : Fragment() {
         txtPrecio.text = SolicitudDetalleArgs.fromBundle(requireArguments()).precio
         txtDescripcion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).descripcionTrabajo
         fullName = SolicitudDetalleArgs.fromBundle(requireArguments()).proveedorName
+
+        var fechaSegs = SolicitudDetalleArgs.fromBundle(requireArguments()).segundosTotales
+        var fecha = Date(fechaSegs)
+
+        txtFecha.text = "${fecha}"
+
 
         val docRef = auth.currentUser?.let { db.collection("prestadores").document(it.uid) }
 
@@ -103,16 +115,37 @@ class SolicitudDetalle : Fragment() {
                             if(todoBien){
                                 trabajoBuscado.aceptado = true
 
-                                auth.currentUser?.let { it1 ->
-                                    db.collection("prestadores").document(
-                                        it1.uid).set(prestador)
-                                }
+                                db.collection("usuarios")
+                                    .whereEqualTo("phone",trabajoBuscado.telefonoUsuario)
+                                    .get()
+                                    .addOnSuccessListener {taskN2 ->
+                                        if(taskN2 != null){
+                                            var losClientes = taskN2.toObjects(Usuario::class.java)
 
-                                Snackbar.make(
-                                    it,
-                                    "Aceptaste el trabajo de ${txtName.text}, deberás comunicarte a través whatsapp para confirmar detalles",
-                                    BaseTransientBottomBar.LENGTH_SHORT
-                                ).show()
+                                            clienteBuscado = losClientes[0]
+                                            var tareaCliente = clienteBuscado.contrataciones.firstOrNull { it.descripcion == txtDescripcion.text }
+
+                                            if (tareaCliente != null) {
+                                                tareaCliente.aceptado = true
+                                            }
+
+                                            var docID = taskN2.documents[0].id
+
+                                            db.collection("usuarios").document(docID).set(clienteBuscado)
+
+                                            auth.currentUser?.let { it1 ->
+                                                db.collection("prestadores").document(
+                                                    it1.uid).set(prestador)
+                                            }
+
+                                            Snackbar.make(
+                                                it,
+                                                "Aceptaste el trabajo de ${txtName.text}, deberás comunicarte a través whatsapp para confirmar detalles",
+                                                BaseTransientBottomBar.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+                                    }
                             }
                         }
                     }
@@ -130,12 +163,35 @@ class SolicitudDetalle : Fragment() {
                             prestador.trabajos.firstOrNull { it.descripcion == txtDescripcion.text }!!
                         if (trabajoBuscado != null) {
                             trabajoBuscado.aceptado = false
-                       //     prestador.trabajos.remove(trabajoBuscado)
-                            Snackbar.make(
-                                it,
-                                "Rechazaste el trabajo de ${txtName.text} .",
-                                BaseTransientBottomBar.LENGTH_SHORT
-                            ).show()
+                            db.collection("usuarios")
+                                .whereEqualTo("phone",trabajoBuscado.telefonoUsuario)
+                                .get()
+                                .addOnSuccessListener { taskN2 ->
+                                    if (taskN2 != null) {
+                                        var losClientes = taskN2.toObjects(Usuario::class.java)
+
+                                        clienteBuscado = losClientes[0]
+                                        var tareaCliente =
+                                            clienteBuscado.contrataciones.firstOrNull { it.descripcion == txtDescripcion.text }
+
+                                        if (tareaCliente != null) {
+                                            clienteBuscado.contrataciones.remove(tareaCliente)
+                                        }
+
+                                        var docID = taskN2.documents[0].id
+
+                                        db.collection("usuarios").document(docID)
+                                            .set(clienteBuscado)
+
+                                        prestador.trabajos.remove(trabajoBuscado)
+                                        docRef.set(prestador)
+                                        Snackbar.make(
+                                            it,
+                                            "Rechazaste el trabajo de ${txtName.text} .",
+                                            BaseTransientBottomBar.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
                         }
                     }
                 }
