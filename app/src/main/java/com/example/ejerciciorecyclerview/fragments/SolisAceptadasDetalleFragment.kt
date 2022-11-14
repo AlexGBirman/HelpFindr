@@ -16,6 +16,8 @@ import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Usuario
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,10 +29,12 @@ class SolisAceptadasDetalleFragment : Fragment() {
 
     lateinit var v : View
     lateinit var db : FirebaseFirestore
+    lateinit var auth : FirebaseAuth
     var puede = false
 
     lateinit var txtVNombreCliente : TextView
     lateinit var txtVDescSolicitud : TextView
+    lateinit var txtFechaTrabajo : TextView
     lateinit var barraRating : RatingBar
 
     lateinit var btnCalificar : Button
@@ -53,12 +57,16 @@ class SolisAceptadasDetalleFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.fragment_solis_aceptadas_detalle, container, false)
         db = Firebase.firestore
+        auth = Firebase.auth
+
         var docRef = db.collection("usuarios")
+        var docPrest = db.collection("prestadores").document(auth.currentUser?.uid!!)
         puede = true
 
         txtVNombreCliente = v.findViewById(R.id.detalleNombreCliente)
         txtVDescSolicitud = v.findViewById(R.id.detalleDescSoliAceptada)
         barraRating = v.findViewById(R.id.estrellasCalificacion)
+        txtFechaTrabajo = v.findViewById(R.id.fechaTrabajoDetalle)
 
         btnCalificar = v.findViewById(R.id.confirmarCalificacion)
         btnBorrar = v.findViewById(R.id.borrarLaSolicitudAceptada)
@@ -84,6 +92,9 @@ class SolisAceptadasDetalleFragment : Fragment() {
 
         txtVNombreCliente.text = nombreCliente
         txtVDescSolicitud.text = descripcionSoli
+
+        var fechaTrabajo = Date(segundosTrabajo)
+        txtFechaTrabajo.text = "$fechaTrabajo"
 
         btnWpp.setOnClickListener {
             val url = "https://api.whatsapp.com/send?phone=+54$numeroDeTelefono"
@@ -123,24 +134,19 @@ class SolisAceptadasDetalleFragment : Fragment() {
 
         btnBorrar.setOnClickListener {
             if(puede){
-                docRef
-                    .whereEqualTo("phone", numeroDeTelefono)
+                docPrest
                     .get()
                     .addOnSuccessListener { snapshot ->
                         if(snapshot != null){
-                            var clientes = snapshot.toObjects(Usuario::class.java)
-                            if(clientes.isNotEmpty()){
-                                var cliente = clientes[0]
+                            var prestador = snapshot.toObject(Prestador::class.java)
+                            if(prestador != null){
+                                var soliBuscada = prestador.trabajos.firstOrNull { soli -> soli.descripcion == descripcionSoli }
 
-                                var soliBuscada = cliente.contrataciones.firstOrNull() { soli -> soli.descripcion == descripcionSoli }
+                                prestador.trabajos.remove(soliBuscada)
 
-                                cliente.contrataciones.remove(soliBuscada)
+                                docPrest.set(prestador)
 
-                                var docID = snapshot.documents[0].id
-
-                                docRef.document(docID).set(cliente)
-
-                                Snackbar.make(v, "Borraste exitosamente la solicitud", Snackbar.LENGTH_SHORT)
+                                Snackbar.make(v, "Borraste exitosamente el trabajo", Snackbar.LENGTH_SHORT)
                             }
                         }
                     }

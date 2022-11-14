@@ -33,6 +33,7 @@ class SignUpFragment : Fragment() {
     private lateinit var txtName : EditText
     private lateinit var txtLastName : EditText
     private lateinit var txtAddress : EditText
+    private lateinit var txtPostCode : EditText
     private lateinit var txtPhoneNumber : EditText
     private lateinit var txtRubro : EditText
 
@@ -59,6 +60,7 @@ class SignUpFragment : Fragment() {
         txtName = v.findViewById(R.id.txtPersonNameSignUp)
         txtLastName = v.findViewById(R.id.txtPersonLastNameSignUp)
         txtAddress = v.findViewById(R.id.txtAddressSignUp)
+        txtPostCode = v.findViewById(R.id.postCode)
         txtPhoneNumber = v.findViewById(R.id.txtPhoneNumberSIgnUp)
         txtRubro = v.findViewById(R.id.txtRubroSignUp)
 
@@ -68,13 +70,14 @@ class SignUpFragment : Fragment() {
         return v
     }
 
-    private fun getLocFromAddress(address : String) : GeoPoint?{
+    private fun getLocFromAddress(stNameNumber : String, postCode : String) : GeoPoint?{
         var coder = Geocoder(requireContext(), Locale.getDefault())
         var addresses = listOf<Address>()
         lateinit var geolocalizacion : GeoPoint
+        var formattedAddress = "$stNameNumber, C$postCode CABA, Argentina"
 
         try{
-            addresses = coder.getFromLocationName(address,1)
+            addresses = coder.getFromLocationName(formattedAddress,1)
             if(addresses == null){
                 return null
             }
@@ -98,9 +101,12 @@ class SignUpFragment : Fragment() {
             auth.createUserWithEmailAndPassword(txtUser.text.toString(), txtPass.text.toString())
                 .addOnCompleteListener(requireContext() as Activity){task ->
                     if(task.isSuccessful){
-                        Log.d("testeo", "succes")
+                        Log.d("testeo", "success")
                         val user = auth.currentUser
-                        var geolocalizacion = getLocFromAddress(txtAddress.text.toString())!!
+
+                        var direccion = txtAddress.text.toString()
+                        var codPostal = txtPostCode.text.toString()
+                        var geolocalizacion = getLocFromAddress(direccion, codPostal)!!
                         var usuario = Usuario(txtName.text.toString(), txtLastName.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf(), arrayListOf())
 
                         if (user != null) {
@@ -120,7 +126,11 @@ class SignUpFragment : Fragment() {
                     if(task.isSuccessful){
                         Log.d("testeo", "succes")
                         val user = auth.currentUser
-                        var geolocalizacion = getLocFromAddress(txtAddress.text.toString())!!
+
+                        var direccion = txtAddress.text.toString()
+                        var codPostal = txtPostCode.text.toString()
+                        var geolocalizacion = getLocFromAddress(direccion, codPostal)!!
+
                         var prestador = Prestador(txtLastName.text.toString(), "PRESTADOR", txtName.text.toString(), txtRubro.text.toString(), geolocalizacion, txtPhoneNumber.text.toString(), arrayListOf(), arrayListOf())
 
                         if (user != null) {

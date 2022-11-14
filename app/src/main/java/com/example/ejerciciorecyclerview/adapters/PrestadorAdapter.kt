@@ -8,9 +8,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
+import com.example.ejerciciorecyclerview.entities.Servicio
 
 class PrestadorAdapter (
-    var prestadoresList: MutableList<Prestador>,
+    var prestadoresList: List<Prestador>,
     var onClick : (Int) -> Unit
 ) : RecyclerView.Adapter<PrestadorAdapter.PrestadorHolder>() {
 
@@ -50,6 +51,13 @@ class PrestadorAdapter (
         holder.getCard().setOnClickListener{
             onClick(position)
         }
+    }
+
+
+    fun update(modelList : List<Prestador>){
+        prestadoresList = modelList
+
+        notifyDataSetChanged()
     }
 
 }
