@@ -163,7 +163,6 @@ class SolicitudDetalle : Fragment() {
                             prestador.trabajos.firstOrNull { it.descripcion == txtDescripcion.text }!!
                         if (trabajoBuscado != null) {
                             trabajoBuscado.aceptado = false
-
                             db.collection("usuarios")
                                 .whereEqualTo("phone",trabajoBuscado.telefonoUsuario)
                                 .get()
