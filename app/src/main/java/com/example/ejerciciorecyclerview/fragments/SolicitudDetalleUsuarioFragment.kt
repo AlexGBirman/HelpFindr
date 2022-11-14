@@ -72,13 +72,14 @@ class SolicitudDetalleUsuarioFragment : Fragment() {
         var segundosTrabajo = SolicitudDetalleUsuarioFragmentArgs.fromBundle(requireArguments()).segundosTotales
 
         var currentLocalDateTime = LocalDateTime.now()
-        var current = Date(currentLocalDateTime.year-1900, currentLocalDateTime.monthValue-1,currentLocalDateTime.dayOfMonth,currentLocalDateTime.hour,currentLocalDateTime.second)
+        var current = Date(currentLocalDateTime.year-1900, currentLocalDateTime.monthValue-1,currentLocalDateTime.dayOfMonth,currentLocalDateTime.hour,currentLocalDateTime.minute)
 
         var segundosActuales = current.time
 
-        var diferencia = segundosActuales - segundosTrabajo
+        var diferencia = (segundosActuales - segundosTrabajo).toDouble()
+        var conversion = (60*60*1000).toDouble()
 
-        diferencia = diferencia/(60*60*1000)%60
+        diferencia = diferencia.div(conversion)
 
         puede = diferencia > 2
 
@@ -145,12 +146,6 @@ class SolicitudDetalleUsuarioFragment : Fragment() {
 
 
         return v
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SolicitudDetalleUsuarioViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

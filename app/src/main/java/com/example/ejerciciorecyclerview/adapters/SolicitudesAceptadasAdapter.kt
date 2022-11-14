@@ -44,7 +44,7 @@ class SolicitudesAceptadasAdapter(var solisAceptadasList : List<Servicio>,
     }
 
     override fun onBindViewHolder(holder: SolicitudesAceptadasHolder, position: Int) {
-        holder.setUser(solisAceptadasList[position].prestador)
+        holder.setUser(solisAceptadasList[position].cliente.name)
         holder.setDescripcion(solisAceptadasList[position].descripcion)
 
         holder.getCardText().setOnClickListener{

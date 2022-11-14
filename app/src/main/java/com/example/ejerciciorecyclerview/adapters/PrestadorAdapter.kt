@@ -26,9 +26,9 @@ class PrestadorAdapter (
             val txtNombre : TextView = view.findViewById(R.id.nombre)
             txtNombre.text = nombre
         }
-        fun setApellido(apellido : String){
-            val txtApellido : TextView = view.findViewById(R.id.apellido)
-            txtApellido.text = apellido
+        fun setPuntaje(puntaje : String){
+            val txtPuntaje : TextView = view.findViewById(R.id.puntajePrestadorLista)
+            txtPuntaje.text = puntaje
         }
         fun getCard(): CardView{
             return view.findViewById(R.id.cardPrestador)
@@ -45,8 +45,8 @@ class PrestadorAdapter (
     }
 
     override fun onBindViewHolder(holder: PrestadorHolder, position: Int) {
-        holder.setNombre(prestadoresList[position].nombre)
-        holder.setApellido(prestadoresList[position].apellido)
+        holder.setNombre(prestadoresList[position].nombre + " " + prestadoresList[position].apellido)
+        holder.setPuntaje(prestadoresList[position].puntajeTotal.toString())
 
         holder.getCard().setOnClickListener{
             onClick(position)

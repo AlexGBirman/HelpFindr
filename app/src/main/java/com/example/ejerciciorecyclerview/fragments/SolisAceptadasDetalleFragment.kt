@@ -80,15 +80,16 @@ class SolisAceptadasDetalleFragment : Fragment() {
         var segundosTrabajo = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).segundosTotales
 
         var currentLocalDateTime = LocalDateTime.now()
-        var current = Date(currentLocalDateTime.year-1900, currentLocalDateTime.monthValue-1,currentLocalDateTime.dayOfMonth,currentLocalDateTime.hour,currentLocalDateTime.second)
+        var current = Date(currentLocalDateTime.year-1900, currentLocalDateTime.monthValue-1,currentLocalDateTime.dayOfMonth,currentLocalDateTime.hour,currentLocalDateTime.minute)
 
         var segundosActuales = current.time
 
-        var diferencia = segundosActuales - segundosTrabajo
+        var diferencia = (segundosActuales - segundosTrabajo).toDouble()
+        var conversion = (60*60*1000).toDouble()
 
-        diferencia = diferencia/(60*60*1000)%60
+        var diferenciaTotal = diferencia.div(conversion)
 
-        puede = diferencia > 2
+        puede = diferenciaTotal > 2
 
         txtVNombreCliente.text = nombreCliente
         txtVDescSolicitud.text = descripcionSoli

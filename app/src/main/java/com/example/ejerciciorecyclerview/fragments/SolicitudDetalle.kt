@@ -92,13 +92,17 @@ class SolicitudDetalle : Fragment() {
                                     var tiempo1 = trabajoBuscado.fecha
                                     var tiempo2 = laburo.fecha
 
-                                    var dif = tiempo1.toDate().time - tiempo2.toDate().time
+                                    var dif = (tiempo1.toDate().time - tiempo2.toDate().time).toDouble()
 
                                     if(dif < 0){
                                         dif = dif*(-1)
                                     }
-                                    dif = dif/(60*60*1000)%60
-                                    if(dif <= 2){
+
+                                    var conversion =(60*60*1000).toDouble()
+
+                                    var diferenciaTotal = dif.div(conversion)
+
+                                    if(diferenciaTotal <= 2){
                                         Snackbar.make(
                                             it,
                                             "No puedes aceptar el trabajo, tiene conflictos con otros trabajos ya aceptados",

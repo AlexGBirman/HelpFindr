@@ -50,11 +50,8 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
-            android:id="@+id/action_signUpFragment_to_usersFragment"
-            app:destination="@id/usersFragment" />
-        <action
-            android:id="@+id/action_signUpFragment_to_rubrosFragment"
-            app:destination="@id/rubrosFragment" />
+            android:id="@+id/action_signUpFragment_to_loginFragment4"
+            app:destination="@id/loginFragment4" />
     </fragment>
     <fragment
         android:id="@+id/rubrosFragment"
@@ -102,6 +99,9 @@
         <action
             android:id="@+id/action_prestadorDetalle_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <argument
+            android:name="scorePrestador"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -116,9 +116,6 @@
         android:name="com.example.ejerciciorecyclerview.fragments.SolicitudesFragment"
         android:label="fragment_solicitudes"
         tools:layout="@layout/fragment_solicitudes" >
-        <argument
-            android:name="employeeName"
-            app:argType="string" />
         <action
             android:id="@+id/action_solicitudesFragment_to_solicitudDetalle"
             app:destination="@id/solicitudDetalle" />
