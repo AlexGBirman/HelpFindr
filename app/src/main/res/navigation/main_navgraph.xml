@@ -149,6 +149,9 @@
         <argument
             android:name="proveedorName"
             app:argType="string" />
+        <argument
+            android:name="segundosTotales"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/solicitudesDelUsuarioFragment"
@@ -195,5 +198,8 @@
         <argument
             android:name="numeroTelCliente"
             app:argType="string" />
+        <argument
+            android:name="segundosTotales"
+            app:argType="long" />
     </fragment>
 </navigation>

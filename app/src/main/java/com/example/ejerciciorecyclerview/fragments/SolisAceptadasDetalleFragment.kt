@@ -15,9 +15,13 @@ import com.example.ejerciciorecyclerview.R
 import com.example.ejerciciorecyclerview.entities.Prestador
 import com.example.ejerciciorecyclerview.entities.Usuario
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 
 class SolisAceptadasDetalleFragment : Fragment() {
 
@@ -64,6 +68,20 @@ class SolisAceptadasDetalleFragment : Fragment() {
         numeroDeTelefono = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).numeroTelCliente
         descripcionSoli = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).descSoliAceptada
 
+
+        var segundosTrabajo = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).segundosTotales
+
+        var currentLocalDateTime = LocalDateTime.now()
+        var current = Date(currentLocalDateTime.year-1900, currentLocalDateTime.monthValue-1,currentLocalDateTime.dayOfMonth,currentLocalDateTime.hour,currentLocalDateTime.second)
+
+        var segundosActuales = current.time
+
+        var diferencia = segundosActuales - segundosTrabajo
+
+        diferencia = diferencia/(60*60*1000)%60
+
+        puede = diferencia > 2
+
         txtVNombreCliente.text = nombreCliente
         txtVDescSolicitud.text = descripcionSoli
 
@@ -97,6 +115,9 @@ class SolisAceptadasDetalleFragment : Fragment() {
                             }
                         }
                     }
+            }else{
+                Snackbar.make(v, "No puedes calificar antes de que se realice el servicio", Snackbar.LENGTH_SHORT).show()
+
             }
         }
 
@@ -123,6 +144,8 @@ class SolisAceptadasDetalleFragment : Fragment() {
                             }
                         }
                     }
+            }else{
+                Snackbar.make(v, "No puedes borrar el trabajo hasta haberlo finalizado", Snackbar.LENGTH_SHORT).show()
             }
         }
 

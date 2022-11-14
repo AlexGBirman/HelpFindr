@@ -92,11 +92,12 @@ class SolicitudesFragment : Fragment() {
                         val clientName = servicioBuscado.cliente.name
                         val clientScore = servicioBuscado.cliente.score.toString()
                         val precio = servicioBuscado.precio.toString()
+                        val fecha = servicioBuscado.fecha.toDate().time
 
                         val addresses = geocoder.getFromLocation(servicioBuscado.geolocalizacion.latitude, servicioBuscado.geolocalizacion.longitude, 1)
                         val address = addresses[0].getAddressLine(0)
 
-                        val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName)
+                        val actionSoliToDetails = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudDetalle(clientName,precio,clientScore,desc,address, fullName, fecha)
                         v.findNavController().navigate(actionSoliToDetails)
                     }
 

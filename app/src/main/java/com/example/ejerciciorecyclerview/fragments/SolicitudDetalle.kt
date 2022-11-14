@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
 import java.util.*
 
 class SolicitudDetalle : Fragment() {
@@ -31,6 +32,7 @@ class SolicitudDetalle : Fragment() {
     lateinit var txtDireccion : TextView
     lateinit var txtPrecio : TextView
     lateinit var txtDescripcion : TextView
+    lateinit var txtFecha : TextView
     lateinit var btnConfirmar : Button
     lateinit var btnRechazar : Button
     lateinit var fullName : String
@@ -57,6 +59,7 @@ class SolicitudDetalle : Fragment() {
         txtDireccion = v.findViewById(R.id.direccion)
         txtPrecio = v.findViewById(R.id.precio)
         txtDescripcion = v.findViewById(R.id.descripcion)
+        txtFecha = v.findViewById(R.id.fechaTrabajo)
         btnConfirmar = v.findViewById(R.id.aceptar)
         btnRechazar = v.findViewById(R.id.rechazarButton)
 
@@ -66,6 +69,12 @@ class SolicitudDetalle : Fragment() {
         txtPrecio.text = SolicitudDetalleArgs.fromBundle(requireArguments()).precio
         txtDescripcion.text = SolicitudDetalleArgs.fromBundle(requireArguments()).descripcionTrabajo
         fullName = SolicitudDetalleArgs.fromBundle(requireArguments()).proveedorName
+
+        var fechaSegs = SolicitudDetalleArgs.fromBundle(requireArguments()).segundosTotales
+        var fecha = Date(fechaSegs)
+
+        txtFecha.text = "${fecha}"
+
 
         val docRef = auth.currentUser?.let { db.collection("prestadores").document(it.uid) }
 

@@ -65,8 +65,9 @@ class SolicitudesAceptadasFragment : Fragment() {
                 var nombreClient = contratacionBuscada.cliente.name
                 var desc = contratacionBuscada.descripcion
                 var phone = contratacionBuscada.telefonoUsuario
+                var fecha = contratacionBuscada.fecha.toDate().time
 
-                val actionToDetalleDeSolicitud = SolicitudesAceptadasFragmentDirections.actionSolicitudesAceptadasFragmentToSolisAceptadasDetalleFragment(nombreClient,desc,phone)
+                val actionToDetalleDeSolicitud = SolicitudesAceptadasFragmentDirections.actionSolicitudesAceptadasFragmentToSolisAceptadasDetalleFragment(nombreClient,desc,phone, fecha)
                 v.findNavController().navigate(actionToDetalleDeSolicitud)
             }
 
