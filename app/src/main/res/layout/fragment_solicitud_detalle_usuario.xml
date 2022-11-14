@@ -26,6 +26,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detalleNombrePrest" />
 
+    <RatingBar
+        android:id="@+id/barraDePuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fechaSoliUsuario" />
+
+    <Button
+        android:id="@+id/confirmarPuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="calificar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barraDePuntuacion" />
+
     <Button
         android:id="@+id/borrarLaSolicitud"
         android:layout_width="wrap_content"
@@ -35,25 +56,19 @@
         android:text="borrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmarPuntuacion" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmarPuntuacion"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/confirmarPuntuacion"
+    <TextView
+        android:id="@+id/fechaSoliUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="calificar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barraDePuntuacion" />
-
-    <RatingBar
-        android:id="@+id/barraDePuntuacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detalleDescSoliUser" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

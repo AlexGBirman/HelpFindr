@@ -26,44 +26,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detalleNombreCliente" />
 
-    <Button
-        android:id="@+id/borrarLaSolicitudAceptada"
+    <RatingBar
+        android:id="@+id/estrellasCalificacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:text="borrar"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmarCalificacion" />
+        app:layout_constraintTop_toBottomOf="@+id/fechaTrabajoDetalle" />
 
     <Button
         android:id="@+id/confirmarCalificacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:text="calificar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estrellasCalificacion" />
 
-    <RatingBar
-        android:id="@+id/estrellasCalificacion"
+    <Button
+        android:id="@+id/borrarLaSolicitudAceptada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
+        android:text="borrar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detalleDescSoliAceptada" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmarCalificacion" />
 
     <Button
         android:id="@+id/btnContactarCliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="353dp"
         android:text="CONTACTAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrarLaSolicitudAceptada" />
+        app:layout_constraintTop_toBottomOf="@+id/borrarLaSolicitudAceptada"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/fechaTrabajoDetalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detalleDescSoliAceptada" />
 </androidx.constraintlayout.widget.ConstraintLayout>

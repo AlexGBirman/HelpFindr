@@ -92,19 +92,21 @@
             android:ems="10"
             android:hint="Name"
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/txtSignPass"
-            tools:layout_editor_absoluteX="100dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignPass" />
 
         <EditText
             android:id="@+id/txtAddressSignUp"
-            android:layout_width="253dp"
-            android:layout_height="42dp"
+            android:layout_width="159dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="14dp"
             android:ems="10"
-            android:hint="Address(street name, number)"
+            android:hint="St Name, Number"
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp"
-            tools:layout_editor_absoluteX="79dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp" />
 
         <EditText
             android:id="@+id/txtPersonLastNameSignUp"
@@ -114,8 +116,9 @@
             android:ems="10"
             android:hint="Last Name"
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/txtPersonNameSignUp"
-            tools:layout_editor_absoluteX="101dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonNameSignUp" />
 
         <EditText
             android:id="@+id/txtRubroSignUp"
@@ -138,5 +141,18 @@
             android:inputType="phone"
             app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp"
             tools:layout_editor_absoluteX="100dp" />
+
+        <EditText
+            android:id="@+id/postCode"
+            android:layout_width="136dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:hint="Post Code"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toEndOf="@+id/txtAddressSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

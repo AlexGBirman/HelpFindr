@@ -175,6 +175,9 @@
         <argument
             android:name="numeroDeTelefonoPrestador"
             app:argType="string" />
+        <argument
+            android:name="segundosTotales"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/solicitudesAceptadasFragment"

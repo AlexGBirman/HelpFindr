@@ -89,9 +89,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         getCurrentLocation()
 
-
-
-
     }
 
     private fun getCurrentLocation(){
