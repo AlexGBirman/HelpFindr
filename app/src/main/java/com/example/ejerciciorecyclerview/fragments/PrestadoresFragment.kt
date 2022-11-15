@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -81,6 +82,9 @@ class PrestadoresFragment : Fragment() {
         btnMap = v.findViewById(R.id.btnMap)
         btnDist = v.findViewById(R.id.orderByDist)
         btnScore = v.findViewById(R.id.orderByScore)
+        btnMap.setBackgroundColor(Color.YELLOW)
+        btnDist.setBackgroundColor(Color.YELLOW)
+        btnScore.setBackgroundColor(Color.YELLOW)
 
         btnMap.setOnClickListener {
             val actionPrestadoresToDetalle = PrestadoresFragmentDirections.actionPrestadoresFragmentToMapFragment(txtRubro)

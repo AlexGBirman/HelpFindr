@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     android:layout_marginTop="150dp"
     android:layout_marginBottom="150dp"
+    android:background="#f7fca7"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     tools:context=".fragments.DetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#f7fca7">
 
         <TextView
             android:id="@+id/detName"

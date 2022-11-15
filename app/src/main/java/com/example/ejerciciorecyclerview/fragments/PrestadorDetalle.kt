@@ -1,4 +1,5 @@
 package com.example.ejerciciorecyclerview.fragments
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -72,6 +73,7 @@ class PrestadorDetalle : Fragment() {
         txtName = v.findViewById(R.id.fullName)
         txtGeo = v.findViewById(R.id.geoLoc)
         btnContact = v.findViewById(R.id.btnContact)
+        btnContact.setBackgroundColor(Color.YELLOW)
         editDescription = v.findViewById(R.id.editDescription)
         txtScore = v.findViewById(R.id.puntajeDelPrestadorDetalle)
 

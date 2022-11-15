@@ -7,10 +7,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
+    android:background="#f7fca7"
     app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="#f7fca7"
         android:layout_height="match_parent">
 
         <TextView
@@ -18,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             android:textAlignment="center"
             android:textSize="16sp"
