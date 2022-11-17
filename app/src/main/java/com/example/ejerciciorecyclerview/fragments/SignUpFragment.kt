@@ -1,6 +1,7 @@
 package com.example.ejerciciorecyclerview.fragments
 
 import android.app.Activity
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,7 @@ class SignUpFragment : Fragment() {
 
     private lateinit var btnClient : Button
     private lateinit var btnEmployee : Button
+
     private lateinit var auth : FirebaseAuth
     var db = Firebase.firestore
 
@@ -66,7 +68,8 @@ class SignUpFragment : Fragment() {
 
         btnClient = v.findViewById(R.id.btnClient)
         btnEmployee = v.findViewById(R.id.btnEmployee)
-
+        btnClient.setBackgroundColor(Color.YELLOW)
+        btnEmployee.setBackgroundColor(Color.YELLOW)
         return v
     }
 

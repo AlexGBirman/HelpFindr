@@ -1,5 +1,6 @@
 package com.example.ejerciciorecyclerview.fragments
 
+import android.graphics.Color
 import android.location.Geocoder
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -55,6 +56,7 @@ class SolicitudesFragment : Fragment() {
         listaDeSolicitudes = arrayListOf()
         geocoder = Geocoder(requireContext(), Locale.getDefault())
         btnSolisAceptadas = v.findViewById(R.id.verSolisAceptadas)
+        btnSolisAceptadas.setBackgroundColor(Color.YELLOW)
 
         btnSolisAceptadas.setOnClickListener {
             val actionSoliToAceptadas = SolicitudesFragmentDirections.actionSolicitudesFragmentToSolicitudesAceptadasFragment()

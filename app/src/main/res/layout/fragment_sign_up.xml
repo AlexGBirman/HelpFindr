@@ -5,34 +5,118 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SignUpFragment" >
+    android:background="#f7fca7"
+    tools:context=".fragments.SignUpFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="92dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="1dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/postCode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginEnd="2dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtAddressSignUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="2dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtPhoneNumberSIgnUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginEnd="1dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtSignPass"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="1dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtSignName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="1dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtPersonLastNameSignUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <Button
             android:id="@+id/btnClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="229dp"
             android:text="Client"
+            android:textColor="#0f0f0f"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/postCode" />
 
         <Button
             android:id="@+id/btnEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="133dp"
+
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="121dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginBottom="80dp"
             android:text="Employee"
+            android:textColor="#0f0f0f"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnClient" />
+            app:layout_constraintStart_toEndOf="@+id/txtRubroSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
@@ -52,71 +136,74 @@
             android:id="@+id/txtSignName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="108dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp" />
 
         <EditText
             android:id="@+id/txtSignPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="108dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtSignName" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:text="Sign up as"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.314"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRubroSignUp" />
-
         <EditText
             android:id="@+id/txtPersonNameSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="222dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="95dp"
             android:ems="10"
             android:hint="Name"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSignPass" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <EditText
             android:id="@+id/txtAddressSignUp"
-            android:layout_width="159dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="14dp"
+            android:layout_width="207dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="110dp"
             android:ems="10"
-            android:hint="St Name, Number"
+            android:hint="Street Name"
             android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumberSIgnUp" />
 
         <EditText
             android:id="@+id/txtPersonLastNameSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="108dp"
             android:ems="10"
             android:hint="Last Name"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPersonNameSignUp" />
 
@@ -124,35 +211,91 @@
             android:id="@+id/txtRubroSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="184dp"
+            android:layout_marginBottom="83dp"
             android:ems="10"
-            android:hint="Rubro (only if employee)"
+            android:hint="Rubro "
             android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumberSIgnUp"
-            tools:layout_editor_absoluteX="100dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnClient" />
 
         <EditText
             android:id="@+id/txtPhoneNumberSIgnUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="93dp"
             android:layout_marginTop="11dp"
+            android:layout_marginEnd="108dp"
             android:ems="10"
             android:hint="Phone Number"
             android:inputType="phone"
-            app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp"
-            tools:layout_editor_absoluteX="100dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignPass" />
 
         <EditText
             android:id="@+id/postCode"
-            android:layout_width="136dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="14dp"
+            android:layout_width="125dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="193dp"
             android:ems="10"
             android:hint="Post Code"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toEndOf="@+id/txtAddressSignUp"
-            app:layout_constraintTop_toBottomOf="@+id/txtPersonLastNameSignUp" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="244dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginEnd="108dp"
+            android:fontFamily="@font/patua_one"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Registro"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="#000000"
+            android:textSize="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.11" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.785"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintVertical_bias="0.181" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="36dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="1dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:layout_constraintEnd_toStartOf="@+id/txtPersonNameSignUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

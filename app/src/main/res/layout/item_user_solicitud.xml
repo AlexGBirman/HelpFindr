@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardUserSolicitud"
     android:layout_width="match_parent"
+    android:background="#f7fca7"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="14dp"
@@ -11,6 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="#f7fca7"
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
@@ -19,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

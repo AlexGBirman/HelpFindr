@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardPrestador"
+    android:background="#f7fca7"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -12,12 +13,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayuout"
         android:layout_width="match_parent"
+        android:background="#f7fca7"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/txtScore"
@@ -29,6 +32,7 @@
             android:id="@+id/txtScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/patua_one"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

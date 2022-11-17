@@ -1,5 +1,6 @@
 package com.example.ejerciciorecyclerview.fragments
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -51,6 +52,7 @@ class RubrosFragment : Fragment() {
         listaDeRubros = arrayListOf()
         lateinit var txtRubro : String
         val docRef = db.collection("rubros")
+        btnASolicitudes.setBackgroundColor(Color.YELLOW)
 
         btnASolicitudes.setOnClickListener {
             val actionToSolicitudesDelUsuario = RubrosFragmentDirections.actionRubrosFragmentToSolicitudesDelUsuarioFragment()

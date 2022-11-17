@@ -1,6 +1,7 @@
 package com.example.ejerciciorecyclerview.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -71,6 +72,9 @@ class SolisAceptadasDetalleFragment : Fragment() {
         btnCalificar = v.findViewById(R.id.confirmarCalificacion)
         btnBorrar = v.findViewById(R.id.borrarLaSolicitudAceptada)
         btnWpp = v.findViewById(R.id.btnContactarCliente)
+        btnCalificar.setBackgroundColor(Color.YELLOW)
+        btnBorrar.setBackgroundColor(Color.YELLOW)
+        btnWpp.setBackgroundColor(Color.YELLOW)
 
         nombreCliente = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).nombreCliente
         numeroDeTelefono = SolisAceptadasDetalleFragmentArgs.fromBundle(requireArguments()).numeroTelCliente

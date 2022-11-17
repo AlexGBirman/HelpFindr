@@ -3,6 +3,7 @@ package com.example.ejerciciorecyclerview.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,7 +53,8 @@ class LoginFragment : Fragment() {
         txtPass = v.findViewById(R.id.txtPass)
         btnLogin = v.findViewById(R.id.btnLogin)
         btnSignUp = v.findViewById(R.id.btnSignUp)
-
+        btnLogin.setBackgroundColor(Color.YELLOW)
+        btnSignUp.setBackgroundColor(Color.YELLOW)
         return v
     }
 

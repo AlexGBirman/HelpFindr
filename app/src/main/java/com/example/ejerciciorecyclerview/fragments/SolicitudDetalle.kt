@@ -1,5 +1,6 @@
 package com.example.ejerciciorecyclerview.fragments
 
+import android.graphics.Color
 import android.location.Geocoder
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -62,6 +63,8 @@ class SolicitudDetalle : Fragment() {
         txtFecha = v.findViewById(R.id.fechaTrabajo)
         btnConfirmar = v.findViewById(R.id.aceptar)
         btnRechazar = v.findViewById(R.id.rechazarButton)
+        btnConfirmar.setBackgroundColor(Color.YELLOW)
+        btnRechazar.setBackgroundColor(Color.YELLOW)
 
         txtName.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientName
         txtScore.text = SolicitudDetalleArgs.fromBundle(requireArguments()).clientScore
